@@ -193,16 +193,13 @@ export default function LpMobileHome() {
 
           {/* Hasselblad Zoom Label - Mobile Optimized */}
           <div className="text-center mb-6 relative">
-            <span className="text-sm font-medium text-gray-500">
+            <span
+              className="text-sm font-medium text-red-500 cursor-pointer hover:text-red-700 transition-colors"
+              onTouchStart={() => setShowDialog(true)}
+              onTouchEnd={() => setShowDialog(false)}
+              onClick={() => setShowDialog(!showDialog)}
+            >
               Hasselblad Precision Zoom
-              <span
-                className="text-red-500 hover:text-red-700 cursor-pointer relative inline-block ml-1 text-base"
-                onTouchStart={() => setShowDialog(true)}
-                onTouchEnd={() => setShowDialog(false)}
-                onClick={() => setShowDialog(!showDialog)}
-              >
-                [?]
-              </span>
             </span>
 
             {/* Mobile Dialog - Repositioned */}
