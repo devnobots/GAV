@@ -367,7 +367,7 @@ export default function LpMobileHome() {
                       <div className="flex-1">
                         <p className="text-base text-gray-600 leading-relaxed">
                           Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
-                          mirrorless camera celebrated for its extraordinary resolution and color accuracy.
+                          mirrorless camera celebrated for its extraordinary resolution.
                           <br />
                           <br />
                           We invest in this precision to capture every subtle detail, ensuring that what you see online
