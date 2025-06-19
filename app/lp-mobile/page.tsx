@@ -1,12 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 
 export default function LpMobile() {
   const [showVideo, setShowVideo] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   const handleGetStarted = () => {
     setShowVideo(true)
+    // Small delay to ensure video element is rendered
+    setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.muted = false
+        videoRef.current.play()
+      }
+    }, 100)
   }
 
   return (
@@ -34,11 +42,12 @@ export default function LpMobile() {
           </div>
         </>
       ) : (
-        /* Video container */
-        <div className="flex-1 flex items-center justify-center p-4">
+        /* Full viewport video container */
+        <div className="fixed inset-0 w-full h-full">
           <video
-            className="w-full h-full max-w-full max-h-full object-contain"
-            controls
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            muted
             autoPlay
             playsInline
             src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/GAV_MOBILE_Intro-pFMpmqmAcjb910pz6OgiRPs3t063fc.mp4"
