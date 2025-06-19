@@ -66,7 +66,7 @@ export default function LpMobile() {
               muted
               preload="auto"
               playsInline
-              src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/GAV_MOBILE_1-vsfPN3EnHQUCPbRlwR4sovaoRgKAVi.mp4"
+              src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/GAV_MOBILE_A-4yf9QEd0DwpFBiTmeDgdtI2QiaIefc.mp4"
             >
               Your browser does not support the video tag.
             </video>
