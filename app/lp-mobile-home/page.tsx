@@ -157,9 +157,9 @@ export default function LpMobileHome() {
           const deltaX = touch.clientX - touchStartPos.x
           const deltaY = touch.clientY - touchStartPos.y
 
-          // Convert movement to percentage of container size
-          const moveXPercent = (deltaX / rect.width) * 100
-          const moveYPercent = (deltaY / rect.height) * 100
+          // Convert movement to percentage of container size (doubled for better sensitivity)
+          const moveXPercent = (deltaX / rect.width) * 100 * 2
+          const moveYPercent = (deltaY / rect.height) * 100 * 2
 
           // Apply movement directly (image follows finger)
           const newX = Math.max(0, Math.min(100, zoomPosition.x + moveXPercent))
