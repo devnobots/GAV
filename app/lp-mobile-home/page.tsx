@@ -152,7 +152,7 @@ export default function LpMobileHome() {
                   className="w-full h-full transition-all duration-300 ease-out"
                   style={{
                     backgroundImage: `url(${currentImage})`,
-                    backgroundSize: "250%",
+                    backgroundSize: "750%",
                     backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
                     backgroundRepeat: "no-repeat",
                   }}

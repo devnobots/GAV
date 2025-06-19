@@ -1,11 +1,13 @@
 "use client"
 
 import { useState, useRef } from "react"
+import { useRouter } from "next/navigation"
 
 export default function LpMobile() {
   const [currentPhase, setCurrentPhase] = useState<"loader" | "landing" | "mainVideo">("loader")
   const loaderVideoRef = useRef<HTMLVideoElement>(null)
   const mainVideoRef = useRef<HTMLVideoElement>(null)
+  const router = useRouter()
 
   const handleLoaderVideoEnd = () => {
     setCurrentPhase("landing")
@@ -20,6 +22,10 @@ export default function LpMobile() {
         mainVideoRef.current.play()
       }
     }, 100)
+  }
+
+  const handleVideoClick = () => {
+    router.push("/lp-mobile-home")
   }
 
   return (
@@ -53,7 +59,7 @@ export default function LpMobile() {
 
         {/* Main Video - Shows after Get Started is clicked */}
         {currentPhase === "mainVideo" && (
-          <div className="fixed inset-0 w-full h-full">
+          <div className="fixed inset-0 w-full h-full cursor-pointer" onClick={handleVideoClick}>
             <video
               ref={mainVideoRef}
               className="w-full h-full object-cover"
