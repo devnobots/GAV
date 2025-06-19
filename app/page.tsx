@@ -98,33 +98,19 @@ export default function GradeAVinylSite() {
       )}
 
       {/* Header */}
-      <header className="w-full py-6 px-8">
+      <header className="w-full py-4 px-8">
         <div className="max-w-7xl mx-auto">
           {/* Logo */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-4">
             <h1 className="text-4xl font-black text-red-500 tracking-wider">GRADE A VINYL</h1>
           </div>
 
           {/* Navigation */}
           <nav className="flex justify-center space-x-12 text-sm font-medium text-gray-600">
-            <a href="#" className="hover:text-gray-900 transition-colors">
-              CONSTELLATION
-            </a>
-            <a href="#" className="hover:text-gray-900 transition-colors">
-              SEAMASTER
-            </a>
-            <a href="#" className="hover:text-gray-900 transition-colors">
-              SPEEDMASTER
-            </a>
-            <a href="#" className="hover:text-gray-900 transition-colors">
-              DE VILLE
-            </a>
-            <a href="#" className="hover:text-gray-900 transition-colors">
-              Accessories
-            </a>
-            <a href="#" className="hover:text-gray-900 transition-colors">
-              Find your OMEGA
-            </a>
+            <span className="text-red-500 font-semibold">HOME</span>
+            <span className="hover:text-gray-900 transition-colors">COLLECTION</span>
+            <span className="hover:text-gray-900 transition-colors">OUR MISSION</span>
+            <span className="hover:text-gray-900 transition-colors">CONTACT US</span>
           </nav>
         </div>
       </header>

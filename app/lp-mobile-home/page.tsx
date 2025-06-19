@@ -147,19 +147,41 @@ export default function LpMobileHome() {
         }
       } else if (e.touches.length === 1 && zoomLevel > 1 && !isPinching) {
         e.preventDefault()
+
+        // Get current touch position
+        const touch = e.touches[0]
         const rect = fullscreenImageRef.current?.getBoundingClientRect()
-        if (rect) {
-          const touch = e.touches[0]
-          const x = ((touch.clientX - rect.left) / rect.width) * 100
-          const y = ((touch.clientY - rect.top) / rect.height) * 100
-          setZoomPosition({
-            x: Math.max(0, Math.min(100, x)),
-            y: Math.max(0, Math.min(100, y)),
-          })
+
+        if (rect && touchStartPos) {
+          // Calculate how much the finger has moved
+          const deltaX = touch.clientX - touchStartPos.x
+          const deltaY = touch.clientY - touchStartPos.y
+
+          // Convert movement to percentage of container size
+          const moveXPercent = (deltaX / rect.width) * 100
+          const moveYPercent = (deltaY / rect.height) * 100
+
+          // Apply movement directly (image follows finger)
+          const newX = Math.max(0, Math.min(100, zoomPosition.x + moveXPercent))
+          const newY = Math.max(0, Math.min(100, zoomPosition.y + moveYPercent))
+
+          setZoomPosition({ x: newX, y: newY })
+
+          // Update touch start position for next movement calculation
+          setTouchStartPos({ x: touch.clientX, y: touch.clientY })
         }
       }
     },
-    [isPinching, getDistance, getMidpoint, initialPinchDistance, initialZoomLevel, zoomLevel],
+    [
+      isPinching,
+      getDistance,
+      getMidpoint,
+      initialPinchDistance,
+      initialZoomLevel,
+      zoomLevel,
+      touchStartPos,
+      zoomPosition,
+    ],
   )
 
   const handleFullscreenTouchEnd = useCallback(
@@ -346,11 +368,13 @@ export default function LpMobileHome() {
                         <p className="text-sm text-gray-600 leading-relaxed">
                           Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
                           mirrorless camera celebrated for its extraordinary resolution and color accuracy.
-                          <br /><br />                                                  
-                          We invest in this precision to capture every subtle detail, ensuring that
-                          what you see online is an exact representation of your chosen record.
-<br /><br /><b>We recommend exploring our collection on a desktop computer.</b>
-
+                          <br />
+                          <br />
+                          We invest in this precision to capture every subtle detail, ensuring that what you see online
+                          is an exact representation of your chosen record.
+                          <br />
+                          <br />
+                          <b>We recommend exploring our collection on a desktop computer.</b>
                         </p>
                       </div>
                     </div>

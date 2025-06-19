@@ -92,3 +92,20 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Force remove underlines from all links */
+a {
+  text-decoration: none !important;
+}
+
+nav a {
+  text-decoration: none !important;
+}
+
+/* Ensure Next.js Link components also have no underlines */
+nav a:link,
+nav a:visited,
+nav a:hover,
+nav a:active {
+  text-decoration: none !important;
+}
