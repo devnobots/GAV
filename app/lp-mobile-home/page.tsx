@@ -361,11 +361,11 @@ export default function LpMobileHome() {
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">True-to-Life Imagery</h3>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">True-to-Life Imagery</h3>
 
                       {/* Text content */}
                       <div className="flex-1">
-                        <p className="text-sm text-gray-600 leading-relaxed">
+                        <p className="text-base text-gray-600 leading-relaxed">
                           Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
                           mirrorless camera celebrated for its extraordinary resolution and color accuracy.
                           <br />
