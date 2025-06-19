@@ -19,7 +19,21 @@ export default function LpMobile() {
 
   return (
     <div className="min-h-screen bg-black flex flex-col font-['Montserrat'] text-white">
-      {!showVideo ? (
+      {/* Video preloading in background - always present but hidden until needed */}
+      <div className={`fixed inset-0 w-full h-full ${showVideo ? "block" : "hidden"}`}>
+        <video
+          ref={videoRef}
+          className="w-full h-full object-cover"
+          muted
+          preload="auto"
+          playsInline
+          src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/GAV_MOBILE_Intro-pFMpmqmAcjb910pz6OgiRPs3t063fc.mp4"
+        >
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      {!showVideo && (
         <>
           {/* Content positioned at top third */}
           <div className="flex-1 flex flex-col justify-start pt-[33vh] px-8">
@@ -41,20 +55,6 @@ export default function LpMobile() {
             </div>
           </div>
         </>
-      ) : (
-        /* Full viewport video container */
-        <div className="fixed inset-0 w-full h-full">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
-            muted
-            autoPlay
-            playsInline
-            src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/GAV_MOBILE_Intro-pFMpmqmAcjb910pz6OgiRPs3t063fc.mp4"
-          >
-            Your browser does not support the video tag.
-          </video>
-        </div>
       )}
     </div>
   )
