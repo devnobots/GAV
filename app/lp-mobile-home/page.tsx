@@ -42,52 +42,54 @@ export default function LpMobileHome() {
   const [isZoomed, setIsZoomed] = useState(false)
   const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 })
   const [showDialog, setShowDialog] = useState(false)
-  const [isPanning, setIsPanning] = useState(false)
-  const [lastTouchTime, setLastTouchTime] = useState(0)
+  const [touchStartTime, setTouchStartTime] = useState(0)
+  const [touchStartPos, setTouchStartPos] = useState({ x: 0, y: 0 })
 
   const albumImageRef = useRef<HTMLDivElement>(null)
 
   const currentImage = albumViews.find((view) => view.id === selectedView)?.image || albumViews[0].image
 
-  // Handle double-tap to zoom
-  const handleImageTouch = useCallback(
+  // Handle touch start
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    const touch = e.touches[0]
+    setTouchStartTime(Date.now())
+    setTouchStartPos({ x: touch.clientX, y: touch.clientY })
+  }, [])
+
+  // Handle touch end - Safari compatible
+  const handleTouchEnd = useCallback(
     (e: React.TouchEvent) => {
-      const currentTime = Date.now()
-      const timeDiff = currentTime - lastTouchTime
+      e.preventDefault()
+      const touchEndTime = Date.now()
+      const touchDuration = touchEndTime - touchStartTime
+      const touch = e.changedTouches[0]
+      const touchEndPos = { x: touch.clientX, y: touch.clientY }
 
-      if (timeDiff < 300 && timeDiff > 0) {
-        // Double tap detected
-        e.preventDefault()
+      // Calculate distance moved
+      const distance = Math.sqrt(
+        Math.pow(touchEndPos.x - touchStartPos.x, 2) + Math.pow(touchEndPos.y - touchStartPos.y, 2),
+      )
+
+      // If it's a quick tap (< 200ms) and didn't move much (< 10px), toggle zoom
+      if (touchDuration < 200 && distance < 10) {
+        const rect = e.currentTarget.getBoundingClientRect()
+        const x = ((touch.clientX - rect.left) / rect.width) * 100
+        const y = ((touch.clientY - rect.top) / rect.height) * 100
+
+        setZoomPosition({
+          x: Math.max(0, Math.min(100, x)),
+          y: Math.max(0, Math.min(100, y)),
+        })
         setIsZoomed(!isZoomed)
-
-        if (!isZoomed) {
-          // Zoom in at touch point
-          const rect = e.currentTarget.getBoundingClientRect()
-          const touch = e.changedTouches[0]
-          const x = ((touch.clientX - rect.left) / rect.width) * 100
-          const y = ((touch.clientY - rect.top) / rect.height) * 100
-          setZoomPosition({ x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) })
-        }
       }
-      setLastTouchTime(currentTime)
     },
-    [lastTouchTime, isZoomed],
+    [touchStartTime, touchStartPos, isZoomed],
   )
 
   // Handle panning when zoomed
-  const handlePanStart = useCallback(
+  const handleTouchMove = useCallback(
     (e: React.TouchEvent) => {
-      if (isZoomed) {
-        setIsPanning(true)
-        e.preventDefault()
-      }
-    },
-    [isZoomed],
-  )
-
-  const handlePanMove = useCallback(
-    (e: React.TouchEvent) => {
-      if (isZoomed && isPanning && albumImageRef.current) {
+      if (isZoomed && albumImageRef.current) {
         e.preventDefault()
         const rect = albumImageRef.current.getBoundingClientRect()
         const touch = e.touches[0]
@@ -99,12 +101,8 @@ export default function LpMobileHome() {
         })
       }
     },
-    [isZoomed, isPanning],
+    [isZoomed],
   )
-
-  const handlePanEnd = useCallback(() => {
-    setIsPanning(false)
-  }, [])
 
   const handleThumbnailSelect = useCallback((viewId: string) => {
     setSelectedView(viewId)
@@ -121,7 +119,10 @@ export default function LpMobileHome() {
 
       <div
         className="min-h-screen bg-white"
-        style={{ fontFamily: 'Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
+        style={{
+          fontFamily: 'Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          touchAction: "manipulation", // Prevents Safari double-tap zoom
+        }}
       >
         {/* Header - Mobile Optimized */}
         <header className="w-full py-6 px-4">
@@ -137,11 +138,14 @@ export default function LpMobileHome() {
             <div
               ref={albumImageRef}
               className="aspect-square w-full max-w-md mx-auto relative overflow-hidden bg-gray-100 shadow-lg cursor-pointer select-none"
-              onTouchEnd={handleImageTouch}
-              onTouchStart={handlePanStart}
-              onTouchMove={handlePanMove}
-              onTouchCancel={handlePanEnd}
-              style={{ touchAction: isZoomed ? "none" : "auto" }}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              onTouchMove={handleTouchMove}
+              style={{
+                touchAction: "none",
+                WebkitTouchCallout: "none",
+                WebkitUserSelect: "none",
+              }}
             >
               {isZoomed ? (
                 <div
@@ -161,19 +165,20 @@ export default function LpMobileHome() {
                   height={400}
                   className="w-full h-full object-cover transition-all duration-300"
                   priority
+                  draggable={false}
                 />
               )}
 
               {/* Zoom indicator */}
               {!isZoomed && (
-                <div className="absolute bottom-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
-                  Double tap to zoom
+                <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
+                  Tap to zoom
                 </div>
               )}
 
               {isZoomed && (
-                <div className="absolute top-3 right-3 bg-black/50 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
-                  Drag to pan • Double tap to zoom out
+                <div className="absolute top-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
+                  Drag to pan • Tap to zoom out
                 </div>
               )}
             </div>
@@ -254,6 +259,7 @@ export default function LpMobileHome() {
                     width={120}
                     height={120}
                     className="w-full h-full object-cover shadow-md transition-transform active:scale-95"
+                    draggable={false}
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-active:bg-opacity-10 transition-all" />
                   {selectedView === view.id && <div className="absolute inset-0 border-2 border-red-500 rounded"></div>}

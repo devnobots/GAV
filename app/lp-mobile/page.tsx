@@ -3,16 +3,21 @@
 import { useState, useRef } from "react"
 
 export default function LpMobile() {
-  const [showVideo, setShowVideo] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const [currentPhase, setCurrentPhase] = useState<"loader" | "landing" | "mainVideo">("loader")
+  const loaderVideoRef = useRef<HTMLVideoElement>(null)
+  const mainVideoRef = useRef<HTMLVideoElement>(null)
+
+  const handleLoaderVideoEnd = () => {
+    setCurrentPhase("landing")
+  }
 
   const handleGetStarted = () => {
-    setShowVideo(true)
+    setCurrentPhase("mainVideo")
     // Small delay to ensure video element is rendered
     setTimeout(() => {
-      if (videoRef.current) {
-        videoRef.current.muted = false
-        videoRef.current.play()
+      if (mainVideoRef.current) {
+        mainVideoRef.current.muted = false
+        mainVideoRef.current.play()
       }
     }, 100)
   }
@@ -29,26 +34,46 @@ export default function LpMobile() {
         className="min-h-screen bg-black flex flex-col text-white"
         style={{ fontFamily: 'Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
       >
-        {/* Video preloading in background - always present but hidden until needed */}
-        <div className={`fixed inset-0 w-full h-full ${showVideo ? "block" : "hidden"}`}>
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
-            muted
-            preload="auto"
-            playsInline
-            src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/GAV_MOBILE_1-vsfPN3EnHQUCPbRlwR4sovaoRgKAVi.mp4"
-          >
-            Your browser does not support the video tag.
-          </video>
-        </div>
+        {/* Loader Video - Shows first */}
+        {currentPhase === "loader" && (
+          <div className="fixed inset-0 w-full h-full">
+            <video
+              ref={loaderVideoRef}
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              playsInline
+              onEnded={handleLoaderVideoEnd}
+              src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/loader-GAI8ipLqJIf7H9Aq6hjq948qvqwh5L.mp4"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        )}
 
-        {!showVideo && (
+        {/* Main Video - Shows after Get Started is clicked */}
+        {currentPhase === "mainVideo" && (
+          <div className="fixed inset-0 w-full h-full">
+            <video
+              ref={mainVideoRef}
+              className="w-full h-full object-cover"
+              muted
+              preload="auto"
+              playsInline
+              src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/GAV_MOBILE_1-vsfPN3EnHQUCPbRlwR4sovaoRgKAVi.mp4"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        )}
+
+        {/* Landing Screen - Shows after loader video ends */}
+        {currentPhase === "landing" && (
           <>
             {/* Content positioned at top third */}
             <div className="flex-1 flex flex-col justify-start pt-[33vh] px-8">
               <div className="text-center space-y-8">
-                {/* Main heading - using span with nowrap to force second line together */}
+                {/* Main heading - using non-breaking space to keep "Online Vinyl Standard." together */}
                 <h1 className="text-3xl md:text-4xl font-light leading-tight max-w-xl mx-auto tracking-wide">
                   Welcome to the new
                   <br />
