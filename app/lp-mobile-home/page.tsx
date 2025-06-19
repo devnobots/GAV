@@ -309,7 +309,7 @@ export default function LpMobileHome() {
               {/* Hasselblad Zoom Label - Mobile Optimized */}
               <div className="text-center mb-6 relative">
                 <span
-                  className="text-sm font-medium text-red-500 cursor-pointer hover:text-red-700 transition-colors"
+                  className="text-base font-medium text-red-500 cursor-pointer hover:text-red-700 transition-colors"
                   onClick={() => setShowDialog(!showDialog)}
                 >
                   Hasselblad Precision Zoom
@@ -322,7 +322,7 @@ export default function LpMobileHome() {
                       {/* Close button for mobile */}
                       <button
                         onClick={() => setShowDialog(false)}
-                        className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl"
+                        className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl w-8 h-8 flex items-center justify-center"
                       >
                         ×
                       </button>
@@ -346,11 +346,11 @@ export default function LpMobileHome() {
                         <p className="text-sm text-gray-600 leading-relaxed">
                           Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
                           mirrorless camera celebrated for its extraordinary resolution and color accuracy.
-                          <br />
-                          <br />
-                          We invest in this precision to capture every subtle detail - from the intricate textures of
-                          the jacket to the actual vinyl itself and the nuanced clarity of its labels. This ensures that
+                          <br />                                              
+                          We invest in this precision to capture every subtle detail, ensuring that
                           what you see online is an exact representation of your chosen record.
+<br /><br /><b>We recommend exploring our collection on a desktop computer.</b>
+
                         </p>
                       </div>
                     </div>
