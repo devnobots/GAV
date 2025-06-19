@@ -48,11 +48,11 @@ export default function LpMobile() {
             {/* Content positioned at top third */}
             <div className="flex-1 flex flex-col justify-start pt-[33vh] px-8">
               <div className="text-center space-y-8">
-                {/* Main heading - refined with exact line breaks */}
-                <h1 className="text-3xl md:text-4xl font-light leading-tight max-w-md mx-auto tracking-wide">
+                {/* Main heading - using non-breaking space to keep "Online Vinyl Standard." together */}
+                <h1 className="text-3xl md:text-4xl font-light leading-tight max-w-lg mx-auto tracking-wide">
                   Welcome to the new
                   <br />
-                  Online Vinyl Standard.
+                  Online Vinyl&nbsp;Standard.
                 </h1>
 
                 {/* Get Started button - redesigned */}
