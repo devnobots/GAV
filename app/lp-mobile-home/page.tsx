@@ -45,68 +45,139 @@ export default function LpMobileHome() {
   const [touchStartTime, setTouchStartTime] = useState(0)
   const [touchStartPos, setTouchStartPos] = useState({ x: 0, y: 0 })
 
+  const [isPinching, setIsPinching] = useState(false)
+  const [initialPinchDistance, setInitialPinchDistance] = useState(0)
+  const [initialZoomLevel, setInitialZoomLevel] = useState(1)
+  const [zoomLevel, setZoomLevel] = useState(1)
+  const [pinchCenter, setPinchCenter] = useState({ x: 50, y: 50 })
+
   const albumImageRef = useRef<HTMLDivElement>(null)
 
   const currentImage = albumViews.find((view) => view.id === selectedView)?.image || albumViews[0].image
 
-  // Handle touch start
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    const touch = e.touches[0]
-    setTouchStartTime(Date.now())
-    setTouchStartPos({ x: touch.clientX, y: touch.clientY })
+  const getDistance = useCallback((touch1: Touch, touch2: Touch) => {
+    const dx = touch1.clientX - touch2.clientX
+    const dy = touch1.clientY - touch2.clientY
+    return Math.sqrt(dx * dx + dy * dy)
   }, [])
 
-  // Handle touch end - Safari compatible
-  const handleTouchEnd = useCallback(
+  const getMidpoint = useCallback((touch1: Touch, touch2: Touch, rect: DOMRect) => {
+    const midX = (touch1.clientX + touch2.clientX) / 2
+    const midY = (touch1.clientY + touch2.clientY) / 2
+    const x = ((midX - rect.left) / rect.width) * 100
+    const y = ((midY - rect.top) / rect.height) * 100
+    return { x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) }
+  }, [])
+
+  const handleTouchStart = useCallback(
     (e: React.TouchEvent) => {
-      e.preventDefault()
-      const touchEndTime = Date.now()
-      const touchDuration = touchEndTime - touchStartTime
-      const touch = e.changedTouches[0]
-      const touchEndPos = { x: touch.clientX, y: touch.clientY }
+      if (e.touches.length === 1) {
+        // Single touch - existing tap functionality
+        const touch = e.touches[0]
+        setTouchStartTime(Date.now())
+        setTouchStartPos({ x: touch.clientX, y: touch.clientY })
+      } else if (e.touches.length === 2) {
+        // Two touches - pinch zoom
+        e.preventDefault()
+        setIsPinching(true)
+        const distance = getDistance(e.touches[0], e.touches[1])
+        setInitialPinchDistance(distance)
+        setInitialZoomLevel(zoomLevel)
 
-      // Calculate distance moved
-      const distance = Math.sqrt(
-        Math.pow(touchEndPos.x - touchStartPos.x, 2) + Math.pow(touchEndPos.y - touchStartPos.y, 2),
-      )
-
-      // If it's a quick tap (< 200ms) and didn't move much (< 10px), toggle zoom
-      if (touchDuration < 200 && distance < 10) {
-        const rect = e.currentTarget.getBoundingClientRect()
-        const x = ((touch.clientX - rect.left) / rect.width) * 100
-        const y = ((touch.clientY - rect.top) / rect.height) * 100
-
-        setZoomPosition({
-          x: Math.max(0, Math.min(100, x)),
-          y: Math.max(0, Math.min(100, y)),
-        })
-        setIsZoomed(!isZoomed)
+        if (albumImageRef.current) {
+          const rect = albumImageRef.current.getBoundingClientRect()
+          const center = getMidpoint(e.touches[0], e.touches[1], rect)
+          setPinchCenter(center)
+        }
       }
     },
-    [touchStartTime, touchStartPos, isZoomed],
+    [getDistance, getMidpoint, zoomLevel],
   )
 
-  // Handle panning when zoomed
   const handleTouchMove = useCallback(
     (e: React.TouchEvent) => {
-      if (isZoomed && albumImageRef.current) {
+      if (e.touches.length === 2 && isPinching) {
+        // Pinch zoom
         e.preventDefault()
-        const rect = albumImageRef.current.getBoundingClientRect()
-        const touch = e.touches[0]
-        const x = ((touch.clientX - rect.left) / rect.width) * 100
-        const y = ((touch.clientY - rect.top) / rect.height) * 100
-        setZoomPosition({
-          x: Math.max(0, Math.min(100, x)),
-          y: Math.max(0, Math.min(100, y)),
-        })
+        const currentDistance = getDistance(e.touches[0], e.touches[1])
+        const scale = currentDistance / initialPinchDistance
+        const newZoomLevel = Math.max(1, Math.min(5, initialZoomLevel * scale))
+
+        setZoomLevel(newZoomLevel)
+        setIsZoomed(newZoomLevel > 1)
+
+        if (albumImageRef.current) {
+          const rect = albumImageRef.current.getBoundingClientRect()
+          const center = getMidpoint(e.touches[0], e.touches[1], rect)
+          setZoomPosition(center)
+        }
+      } else if (e.touches.length === 1 && isZoomed && !isPinching) {
+        // Single touch panning when zoomed
+        e.preventDefault()
+        const rect = albumImageRef.current?.getBoundingClientRect()
+        if (rect) {
+          const touch = e.touches[0]
+          const x = ((touch.clientX - rect.left) / rect.width) * 100
+          const y = ((touch.clientY - rect.top) / rect.height) * 100
+          setZoomPosition({
+            x: Math.max(0, Math.min(100, x)),
+            y: Math.max(0, Math.min(100, y)),
+          })
+        }
       }
     },
-    [isZoomed],
+    [isZoomed, isPinching, getDistance, getMidpoint, initialPinchDistance, initialZoomLevel],
+  )
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      if (isPinching) {
+        // End pinch zoom
+        setIsPinching(false)
+        if (zoomLevel <= 1.1) {
+          setZoomLevel(1)
+          setIsZoomed(false)
+        }
+      } else if (e.changedTouches.length === 1 && !isPinching) {
+        // Single touch tap
+        e.preventDefault()
+        const touchEndTime = Date.now()
+        const touchDuration = touchEndTime - touchStartTime
+        const touch = e.changedTouches[0]
+        const touchEndPos = { x: touch.clientX, y: touch.clientY }
+
+        const distance = Math.sqrt(
+          Math.pow(touchEndPos.x - touchStartPos.x, 2) + Math.pow(touchEndPos.y - touchStartPos.y, 2),
+        )
+
+        // If it's a quick tap (< 200ms) and didn't move much (< 10px), toggle zoom
+        if (touchDuration < 200 && distance < 10) {
+          const rect = e.currentTarget.getBoundingClientRect()
+          const x = ((touch.clientX - rect.left) / rect.width) * 100
+          const y = ((touch.clientY - rect.top) / rect.height) * 100
+
+          setZoomPosition({
+            x: Math.max(0, Math.min(100, x)),
+            y: Math.max(0, Math.min(100, y)),
+          })
+
+          if (isZoomed) {
+            setIsZoomed(false)
+            setZoomLevel(1)
+          } else {
+            setIsZoomed(true)
+            setZoomLevel(2.5)
+          }
+        }
+      }
+    },
+    [touchStartTime, touchStartPos, isZoomed, isPinching, zoomLevel],
   )
 
   const handleThumbnailSelect = useCallback((viewId: string) => {
     setSelectedView(viewId)
-    setIsZoomed(false) // Reset zoom when switching images
+    setIsZoomed(false)
+    setZoomLevel(1) // Reset zoom level when switching images
   }, [])
 
   return (
@@ -152,7 +223,7 @@ export default function LpMobileHome() {
                   className="w-full h-full transition-all duration-300 ease-out"
                   style={{
                     backgroundImage: `url(${currentImage})`,
-                    backgroundSize: "750%",
+                    backgroundSize: `${100 * zoomLevel}%`,
                     backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
                     backgroundRepeat: "no-repeat",
                   }}
@@ -172,13 +243,13 @@ export default function LpMobileHome() {
               {/* Zoom indicator */}
               {!isZoomed && (
                 <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
-                  Tap to zoom
+                  Tap to zoom • Pinch to zoom
                 </div>
               )}
 
               {isZoomed && (
                 <div className="absolute top-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
-                  Drag to pan • Tap to zoom out
+                  Drag to pan • Pinch to zoom • Tap to reset
                 </div>
               )}
             </div>
@@ -195,8 +266,6 @@ export default function LpMobileHome() {
           <div className="text-center mb-6 relative">
             <span
               className="text-sm font-medium text-red-500 cursor-pointer hover:text-red-700 transition-colors"
-              onTouchStart={() => setShowDialog(true)}
-              onTouchEnd={() => setShowDialog(false)}
               onClick={() => setShowDialog(!showDialog)}
             >
               Hasselblad Precision Zoom
