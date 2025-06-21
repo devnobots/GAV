@@ -131,8 +131,8 @@ export default function LpMobile() {
         className="min-h-screen bg-black flex flex-col text-white relative"
         style={{ fontFamily: 'Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
       >
-        {/* Enhanced Debug Info */}
-        <div className="absolute top-4 left-4 text-xs text-white/70 font-mono z-50 bg-black/50 p-2 rounded">
+        {/* Enhanced Debug Info - Hidden but preserved */}
+        <div className="absolute top-4 left-4 text-xs text-white/70 font-mono z-50 bg-black/50 p-2 rounded hidden">
           <div>Video Load: {videoLoadProgress}%</div>
           <div>Ready: {isVideoReady ? "Yes" : "No"}</div>
           <div>State: {videoState}</div>
