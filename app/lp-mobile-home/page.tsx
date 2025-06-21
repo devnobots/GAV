@@ -339,43 +339,48 @@ export default function LpMobileHome() {
 
                 {/* Mobile Dialog */}
                 {showDialog && (
-                  <div className="fixed inset-4 bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6 overflow-y-auto">
-                    <div className="flex flex-col h-full">
-                      {/* Close button for mobile */}
-                      <button
-                        onClick={() => setShowDialog(false)}
-                        className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl w-8 h-8 flex items-center justify-center"
-                      >
-                        ×
-                      </button>
+                  <div
+                    className="fixed inset-0 bg-black/20 z-50 flex items-center justify-center p-4"
+                    onClick={() => setShowDialog(false)}
+                  >
+                    <div className="bg-white rounded-lg shadow-2xl border border-gray-200 w-full max-w-md max-h-[80vh] p-6 overflow-y-auto">
+                      <div className="flex flex-col h-full">
+                        {/* Close button for mobile */}
+                        <button
+                          onClick={() => setShowDialog(false)}
+                          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl w-8 h-8 flex items-center justify-center"
+                        >
+                          ×
+                        </button>
 
-                      {/* Camera Image */}
-                      <div className="flex justify-center mb-6 mt-4">
-                        <Image
-                          src="/images/hasselblad-x1d-50c.png"
-                          alt="Hasselblad X1D-50c Camera"
-                          width={200}
-                          height={140}
-                          className="object-contain"
-                        />
-                      </div>
+                        {/* Camera Image */}
+                        <div className="flex justify-center mb-6 mt-4">
+                          <Image
+                            src="/images/hasselblad-x1d-50c.png"
+                            alt="Hasselblad X1D-50c Camera"
+                            width={200}
+                            height={140}
+                            className="object-contain"
+                          />
+                        </div>
 
-                      {/* Title */}
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">True-to-Life Imagery</h3>
+                        {/* Title */}
+                        <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">True-to-Life Imagery</h3>
 
-                      {/* Text content */}
-                      <div className="flex-1">
-                        <p className="text-base text-gray-600 leading-relaxed">
-                          Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
-                          mirrorless camera celebrated for its extraordinary resolution.
-                          <br />
-                          <br />
-                          We invest in this precision to capture every subtle detail, ensuring that what you see online
-                          is an exact representation of your chosen record.
-                          <br />
-                          <br />
-                          <b>We recommend exploring our collection on a desktop computer.</b>
-                        </p>
+                        {/* Text content */}
+                        <div className="flex-1">
+                          <p className="text-base text-gray-600 leading-relaxed">
+                            Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
+                            mirrorless camera celebrated for its extraordinary resolution.
+                            <br />
+                            <br />
+                            We invest in this precision to capture every subtle detail, ensuring that what you see
+                            online is an exact representation of your chosen record.
+                            <br />
+                            <br />
+                            <b>We recommend exploring our collection on a desktop computer.</b>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
