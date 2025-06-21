@@ -57,7 +57,7 @@ export default function LpMobile() {
             <div className="flex-1 flex flex-col justify-start pt-[33vh] px-8">
               <div className="text-center space-y-8">
                 {/* Main heading */}
-                <h1 className="text-1xl md:text-2xl font-light leading-tight max-w-xl mx-auto tracking-wide">
+                <h1 className="text-2xl md:text-3xl font-light leading-tight max-w-xl mx-auto tracking-wide">
                   Are you ready for a <br />
                   new way to buy vinyl online?
                 </h1>
