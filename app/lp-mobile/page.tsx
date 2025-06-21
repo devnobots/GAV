@@ -11,6 +11,8 @@ export default function LpMobile() {
   const [videoError, setVideoError] = useState<string | null>(null)
   const [videoState, setVideoState] = useState("loading")
   const mainVideoRef = useRef<HTMLVideoElement>(null)
+  const loopVideoRef = useRef<HTMLVideoElement>(null)
+  const [isLoopVideo, setIsLoopVideo] = useState(false)
   const router = useRouter()
 
   // Start fade-in animation on mount
@@ -62,6 +64,16 @@ export default function LpMobile() {
       setVideoState("metadata loaded")
     }
 
+    const handleVideoEnded = () => {
+      setIsLoopVideo(true)
+      if (loopVideoRef.current) {
+        loopVideoRef.current.muted = false
+        loopVideoRef.current.play().catch((err) => {
+          console.error("Loop video play error:", err)
+        })
+      }
+    }
+
     // Force load attempt
     const forceLoad = () => {
       try {
@@ -78,6 +90,7 @@ export default function LpMobile() {
     video.addEventListener("loadstart", handleLoadStart)
     video.addEventListener("error", handleError)
     video.addEventListener("loadedmetadata", handleLoadedMetadata)
+    video.addEventListener("ended", handleVideoEnded)
 
     // Try to force load after a short delay
     setTimeout(forceLoad, 500)
@@ -89,6 +102,7 @@ export default function LpMobile() {
       video.removeEventListener("loadstart", handleLoadStart)
       video.removeEventListener("error", handleError)
       video.removeEventListener("loadedmetadata", handleLoadedMetadata)
+      video.removeEventListener("ended", handleVideoEnded)
     }
   }, [])
 
@@ -132,12 +146,25 @@ export default function LpMobile() {
         >
           <video
             ref={mainVideoRef}
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover ${isLoopVideo ? "hidden" : "block"}`}
             muted
             preload="auto"
             playsInline
             crossOrigin="anonymous"
             src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/gav_mobile_b-EQuz1dNLDRFz5fqsJCEcxmIEcb6A5f.mp4"
+          >
+            Your browser does not support the video tag.
+          </video>
+
+          <video
+            ref={loopVideoRef}
+            className={`w-full h-full object-cover ${isLoopVideo ? "block" : "hidden"}`}
+            muted
+            preload="metadata"
+            playsInline
+            loop
+            crossOrigin="anonymous"
+            src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/GAV_MOBILE_loop-QREB62sBVcKjv6kVAqbvwtE3fXPJ9E.mp4"
           >
             Your browser does not support the video tag.
           </video>
@@ -153,7 +180,9 @@ export default function LpMobile() {
             <div className="text-center space-y-8">
               <h1 className="text-2xl md:text-3xl font-light leading-tight max-w-xl mx-auto tracking-wide">
                 Are you ready for a<br />
-                new way to buy<br />vinyl online?
+                new way to buy
+                <br />
+                vinyl online?
               </h1>
 
               <div className="flex gap-4 justify-center">
