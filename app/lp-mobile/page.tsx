@@ -146,7 +146,7 @@ export default function LpMobile() {
         {/* Landing Screen */}
         {currentPhase === "landing" && (
           <div
-            className={`flex-1 flex flex-col justify-start pt-[33vh] px-8 transition-opacity duration-[3000ms] ease-out ${
+            className={`flex-1 flex flex-col justify-start pt-[33vh] px-8 transition-opacity duration-[4000ms] ease-out ${
               showContent ? "opacity-100" : "opacity-0"
             }`}
           >
