@@ -152,8 +152,8 @@ export default function LpMobile() {
           >
             <div className="text-center space-y-8">
               <h1 className="text-2xl md:text-3xl font-light leading-tight max-w-xl mx-auto tracking-wide">
-                Are you ready for a <br />
-                new way to buy vinyl online?
+                Are you ready for a<br />
+                new way to buy<br />vinyl online?
               </h1>
 
               <div className="flex gap-4 justify-center">
