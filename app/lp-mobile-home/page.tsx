@@ -363,7 +363,7 @@ export default function LpMobileHome() {
 
                       <div className="flex flex-col h-full">
                         {/* Camera Image */}
-                        <div className="flex justify-center mb-6 mt-4">
+                        <div className="flex justify-center mb-6 mt-0">
                           <Image
                             src="/images/hasselblad-x1d-50c.png"
                             alt="Hasselblad X1D-50c Camera"
