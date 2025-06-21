@@ -137,7 +137,7 @@ export default function LpMobile() {
             preload="auto"
             playsInline
             crossOrigin="anonymous"
-            src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/gav_video_mobile-6FcCrJYxafBaLWGdMME7LobSTUrD3G.mp4"
+            src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/gav_mobile_b-EQuz1dNLDRFz5fqsJCEcxmIEcb6A5f.mp4"
           >
             Your browser does not support the video tag.
           </video>
