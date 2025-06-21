@@ -80,20 +80,28 @@ export default function LpMobile() {
             <div className="flex-1 flex flex-col justify-start pt-[33vh] px-8">
               <div className="text-center space-y-8">
                 {/* Main heading - using non-breaking space to keep "Online Vinyl Standard." together */}
-                <h1 className="text-3xl md:text-4xl font-light leading-tight max-w-xl mx-auto tracking-wide">
-                  Welcome to the new
-                  <br />
-                  <span style={{ whiteSpace: "nowrap" }}>Online Vinyl Standard.</span>
+                <h1 className="text-1xl md:text-2xl font-light leading-tight max-w-xl mx-auto tracking-wide">
+                  Ready for a new way to buy vinyl online?
                 </h1>
 
-                {/* Get Started button - redesigned */}
-                <button
-                  onClick={handleGetStarted}
-                  className="group relative border border-white/20 bg-transparent hover:bg-white/5 text-white font-medium py-3 px-8 transition-all duration-300 tracking-wider text-sm uppercase"
-                >
-                  <span className="relative z-10">Get Started</span>
-                  <div className="absolute inset-0 border border-red-500/0 group-hover:border-red-500/30 transition-all duration-300"></div>
-                </button>
+                {/* Two buttons side by side */}
+                <div className="flex gap-4 justify-center">
+                  <button
+                    onClick={handleGetStarted}
+                    className="group relative border border-white/20 bg-transparent hover:bg-white/5 text-white font-medium py-3 px-8 transition-all duration-300 tracking-wider text-sm uppercase"
+                  >
+                    <span className="relative z-10">YES</span>
+                    <div className="absolute inset-0 border border-red-500/0 group-hover:border-red-500/30 transition-all duration-300"></div>
+                  </button>
+
+                  <button
+                    onClick={() => window.open("https://www.discogs.com/", "_blank")}
+                    className="group relative border border-white/20 bg-transparent hover:bg-white/5 text-white font-medium py-3 px-8 transition-all duration-300 tracking-wider text-sm uppercase"
+                  >
+                    <span className="relative z-10">NO</span>
+                    <div className="absolute inset-0 border border-white/20 group-hover:border-white/40 transition-all duration-300"></div>
+                  </button>
+                </div>
               </div>
             </div>
           </>
