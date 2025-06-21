@@ -13,7 +13,6 @@ export default function LpMobile() {
   const mainVideoRef = useRef<HTMLVideoElement>(null)
   const loopVideoRef = useRef<HTMLVideoElement>(null)
   const [isLoopVideo, setIsLoopVideo] = useState(false)
-  const [isLoopVideoReady, setIsLoopVideoReady] = useState(false)
   const router = useRouter()
 
   // Start fade-in animation on mount
@@ -22,24 +21,6 @@ export default function LpMobile() {
       setShowContent(true)
     }, 100)
     return () => clearTimeout(timer)
-  }, [])
-
-  // Handle loop video loading
-  useEffect(() => {
-    const loopVideo = loopVideoRef.current
-    if (!loopVideo) return
-
-    const handleLoopVideoReady = () => {
-      setIsLoopVideoReady(true)
-    }
-
-    loopVideo.addEventListener("canplaythrough", handleLoopVideoReady)
-    loopVideo.addEventListener("loadeddata", handleLoopVideoReady)
-
-    return () => {
-      loopVideo.removeEventListener("canplaythrough", handleLoopVideoReady)
-      loopVideo.removeEventListener("loadeddata", handleLoopVideoReady)
-    }
   }, [])
 
   // Handle video loading progress and events
@@ -62,11 +43,6 @@ export default function LpMobile() {
       setIsVideoReady(true)
       setVideoLoadProgress(100)
       setVideoState("ready")
-
-      // Start preloading loop video once main video is ready
-      if (loopVideoRef.current && !isLoopVideoReady) {
-        loopVideoRef.current.load()
-      }
     }
 
     const handleLoadedData = () => {
@@ -89,24 +65,12 @@ export default function LpMobile() {
     }
 
     const handleVideoEnded = () => {
-      // Only switch if loop video is ready
-      if (isLoopVideoReady && loopVideoRef.current) {
-        setIsLoopVideo(true)
+      setIsLoopVideo(true)
+      if (loopVideoRef.current) {
         loopVideoRef.current.muted = false
         loopVideoRef.current.play().catch((err) => {
           console.error("Loop video play error:", err)
         })
-      } else {
-        // If loop video isn't ready, wait a bit and try again
-        setTimeout(() => {
-          if (loopVideoRef.current) {
-            setIsLoopVideo(true)
-            loopVideoRef.current.muted = false
-            loopVideoRef.current.play().catch((err) => {
-              console.error("Loop video play error:", err)
-            })
-          }
-        }, 100)
       }
     }
 
@@ -140,7 +104,7 @@ export default function LpMobile() {
       video.removeEventListener("loadedmetadata", handleLoadedMetadata)
       video.removeEventListener("ended", handleVideoEnded)
     }
-  }, [isLoopVideoReady])
+  }, [])
 
   const handleGetStarted = () => {
     setCurrentPhase("mainVideo")
@@ -171,7 +135,6 @@ export default function LpMobile() {
         <div className="absolute top-4 left-4 text-xs text-white/70 font-mono z-50 bg-black/50 p-2 rounded hidden">
           <div>Video Load: {videoLoadProgress}%</div>
           <div>Ready: {isVideoReady ? "Yes" : "No"}</div>
-          <div>Loop Ready: {isLoopVideoReady ? "Yes" : "No"}</div>
           <div>State: {videoState}</div>
           {videoError && <div className="text-red-400">Error: {videoError}</div>}
         </div>
@@ -197,7 +160,7 @@ export default function LpMobile() {
             ref={loopVideoRef}
             className={`w-full h-full object-cover ${isLoopVideo ? "block" : "hidden"}`}
             muted
-            preload="auto"
+            preload="metadata"
             playsInline
             loop
             crossOrigin="anonymous"
