@@ -291,8 +291,17 @@ export default function LpMobileHome() {
               </div>
             </header>
 
+            {/* Breadcrumb Navigation */}
+            <nav className="max-w-7xl mx-auto px-4 mb-6">
+              <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <span className="text-gray-900 font-medium">Home</span>
+                <span>›</span>
+                <span className="text-gray-900 font-medium">Rock</span>
+              </div>
+            </nav>
+
             {/* Main Content - Mobile Stack Layout */}
-            <main className="px-4 pb-8">
+            <main className="px-4 pb-8 pt-2">
               {/* Large Album Display */}
               <div className="mb-6">
                 <div
@@ -343,16 +352,16 @@ export default function LpMobileHome() {
                     className="fixed inset-0 bg-black/20 z-50 flex items-center justify-center p-4"
                     onClick={() => setShowDialog(false)}
                   >
-                    <div className="bg-white rounded-lg shadow-2xl border border-gray-200 w-full max-w-md max-h-[80vh] p-6 overflow-y-auto">
-                      <div className="flex flex-col h-full">
-                        {/* Close button for mobile */}
-                        <button
-                          onClick={() => setShowDialog(false)}
-                          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl w-8 h-8 flex items-center justify-center"
-                        >
-                          ×
-                        </button>
+                    <div className="bg-white rounded-lg shadow-2xl border border-gray-200 w-full max-w-md max-h-[80vh] p-6 overflow-y-auto relative">
+                      {/* Close button for mobile - Make sure it's visible */}
+                      <button
+                        onClick={() => setShowDialog(false)}
+                        className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl w-8 h-8 flex items-center justify-center z-10 bg-white rounded-full shadow-sm"
+                      >
+                        ×
+                      </button>
 
+                      <div className="flex flex-col h-full">
                         {/* Camera Image */}
                         <div className="flex justify-center mb-6 mt-4">
                           <Image

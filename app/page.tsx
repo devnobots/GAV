@@ -104,19 +104,20 @@ export default function GradeAVinylSite() {
           <div className="text-center mb-4">
             <h1 className="text-4xl font-black text-red-500 tracking-wider">GRADE A VINYL</h1>
           </div>
-
-          {/* Navigation */}
-          <nav className="flex justify-center space-x-12 text-sm font-medium text-gray-600">
-            <span className="text-red-500 font-semibold">HOME</span>
-            <span className="hover:text-gray-900 transition-colors">COLLECTION</span>
-            <span className="hover:text-gray-900 transition-colors">OUR MISSION</span>
-            <span className="hover:text-gray-900 transition-colors">CONTACT US</span>
-          </nav>
         </div>
       </header>
 
+      {/* Breadcrumb Navigation */}
+      <nav className="max-w-7xl mx-auto px-8 mb-8">
+        <div className="flex items-center space-x-2 text-sm text-gray-600">
+          <span className="text-gray-900 font-medium">Home</span>
+          <span>›</span>
+          <span className="text-gray-900 font-medium">Rock</span>
+        </div>
+      </nav>
+
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-8 py-12">
+      <main className="max-w-7xl mx-auto px-8 py-2">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           {/* Large Album Display - Zoomed View */}
           <div className="lg:col-span-2">
