@@ -191,8 +191,12 @@ export default function GradeAVinylSite() {
                     </div>
 
                     <div
-                      className="grid grid-cols-3 gap-6 h-full text-xs leading-tight"
-                      style={{ fontFamily: "Lora, serif" }}
+                      className="grid h-full text-xs leading-tight"
+                      style={{
+                        fontFamily: "Lora, serif",
+                        gridTemplateColumns: "1fr 1.2fr 1.3fr",
+                        gap: "1.5rem",
+                      }}
                     >
                       {/* Column 1 */}
                       <div className="space-y-4">
