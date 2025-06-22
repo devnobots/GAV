@@ -192,22 +192,35 @@ export default function GradeAVinylSite() {
 
                     <div
                       className="grid grid-cols-3 gap-6 h-full text-xs leading-tight"
-                      style={{ fontFamily: "Garamond, Times, serif" }}
+                      style={{ fontFamily: "Lora, serif" }}
                     >
                       {/* Column 1 */}
                       <div className="space-y-4">
-                        <h3 className="font-bold text-gray-900 text-sm border-b border-gray-200 pb-1">
-                          Critical Pressing Details
+                        <h3
+                          className="text-gray-900 text-sm border-b border-gray-200 pb-1"
+                          style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                        >
+                          CRITICAL PRESSING DETAILS
                         </h3>
                         <div>
-                          <h4 className="font-semibold text-gray-800 mb-1 text-xs">Matrix / Runout Information:</h4>
+                          <h4
+                            className="text-gray-800 mb-1 text-xs"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          >
+                            Matrix / Runout Information:
+                          </h4>
                           <div className="space-y-0.5 text-gray-700 text-xs">
                             <div>Side A: XZAL-40001-A-RE1 RJ STERLING</div>
                             <div>Side B: XZAL-40001-B-RE1 RJ STERLING</div>
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-800 mb-1 text-xs">Audio & Mastering:</h4>
+                          <h4
+                            className="text-gray-800 mb-1 text-xs"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          >
+                            Audio & Mastering:
+                          </h4>
                           <div className="space-y-0.5 text-gray-700 text-xs">
                             <div>
                               <span className="font-medium">Source:</span> All Analog (AAA)
@@ -224,7 +237,12 @@ export default function GradeAVinylSite() {
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-800 mb-1 text-xs">Edition Details:</h4>
+                          <h4
+                            className="text-gray-800 mb-1 text-xs"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          >
+                            Edition Details:
+                          </h4>
                           <div className="space-y-0.5 text-gray-700 text-xs">
                             <div>
                               <span className="font-medium">Pressing Year:</span> 2017
@@ -244,8 +262,11 @@ export default function GradeAVinylSite() {
 
                       {/* Column 2 */}
                       <div className="space-y-4">
-                        <h3 className="font-bold text-gray-900 text-sm border-b border-gray-200 pb-1">
-                          Physical Identifiers
+                        <h3
+                          className="text-gray-900 text-sm border-b border-gray-200 pb-1"
+                          style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                        >
+                          PHYSICAL IDENTIFIERS
                         </h3>
                         <div>
                           <div className="text-gray-700 text-xs mb-2">
@@ -255,7 +276,12 @@ export default function GradeAVinylSite() {
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-800 mb-1 text-xs">Physical Attributes:</h4>
+                          <h4
+                            className="text-gray-800 mb-1 text-xs"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          >
+                            Physical Attributes:
+                          </h4>
                           <div className="space-y-0.5 text-gray-700 text-xs">
                             <div>
                               <span className="font-medium">Vinyl Color:</span> Black
@@ -278,7 +304,12 @@ export default function GradeAVinylSite() {
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-800 mb-1 text-xs">Supplementary Details:</h4>
+                          <h4
+                            className="text-gray-800 mb-1 text-xs"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          >
+                            Supplementary Details:
+                          </h4>
                           <div className="space-y-0.5 text-gray-700 text-xs">
                             <div>
                               <span className="font-medium">Extras:</span> Cut-Out Figures Sheet
@@ -298,11 +329,19 @@ export default function GradeAVinylSite() {
 
                       {/* Column 3 */}
                       <div className="space-y-4">
-                        <h3 className="font-bold text-gray-900 text-sm border-b border-gray-200 pb-1">
-                          Condition & Provenance
+                        <h3
+                          className="text-gray-900 text-sm border-b border-gray-200 pb-1"
+                          style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                        >
+                          CONDITION & PROVENANCE
                         </h3>
                         <div>
-                          <h4 className="font-semibold text-gray-800 mb-1 text-xs">Condition Assessment:</h4>
+                          <h4
+                            className="text-gray-800 mb-1 text-xs"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          >
+                            Condition Assessment:
+                          </h4>
                           <div className="space-y-0.5 text-gray-700 text-xs">
                             <div>
                               <span className="font-medium">Media:</span> Near Mint (NM)
@@ -313,7 +352,12 @@ export default function GradeAVinylSite() {
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-800 mb-1 text-xs">Technical Specifications:</h4>
+                          <h4
+                            className="text-gray-800 mb-1 text-xs"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          >
+                            Technical Specifications:
+                          </h4>
                           <div className="space-y-0.5 text-gray-700 text-xs">
                             <div>
                               <span className="font-medium">Rights:</span> PRS, MCPS
@@ -330,7 +374,12 @@ export default function GradeAVinylSite() {
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-semibold text-gray-800 mb-1 text-xs">Collector Notes:</h4>
+                          <h4
+                            className="text-gray-800 mb-1 text-xs"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          >
+                            Collector Notes:
+                          </h4>
                           <div className="text-gray-700 text-xs">
                             <div className="mb-2">
                               This pressing features the acclaimed 2017 remix supervised by Giles Martin, son of
@@ -468,6 +517,13 @@ export default function GradeAVinylSite() {
         }
         .transform-style-preserve-3d {
           transform-style: preserve-3d;
+        }
+
+        @font-face {
+          font-family: 'Lora';
+          src: url('/fonts/Lora-Regular.ttf') format('truetype');
+          font-weight: 400;
+          font-style: normal;
         }
       `}</style>
     </div>
