@@ -204,7 +204,7 @@ export default function GradeAVinylSite() {
                           className="text-gray-900 text-sm border-b border-gray-200 pb-1"
                           style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
                         >
-                          CRITICAL PRESSING DETAILS
+                          PRESSING DETAILS
                         </h3>
                         <div>
                           <h4
