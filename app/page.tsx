@@ -408,7 +408,7 @@ export default function GradeAVinylSite() {
                         className="bg-gray-900 text-white px-6 py-2 text-xs hover:bg-gray-700 transition-colors"
                         style={{ fontFamily: "Montserrat, sans-serif" }}
                       >
-                        FLIP BACK
+                        DONE
                       </button>
                     </div>
                   </div>
