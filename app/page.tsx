@@ -273,10 +273,14 @@ export default function GradeAVinylSite() {
                           PHYSICAL IDENTIFIERS
                         </h3>
                         <div>
-                          <div className="text-gray-700 text-xs mb-2">
-                            <span className="font-semibold">Catalog Numbers:</span>
-                            <br />
-                            0602557455984, PCTC 255
+                          <h4
+                            className="text-gray-800 mb-1 text-xs"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          >
+                            Catalog Numbers:
+                          </h4>
+                          <div className="space-y-0.5 text-gray-700 text-xs">
+                            <div>0602557455984, PCTC 255</div>
                           </div>
                         </div>
                         <div>
