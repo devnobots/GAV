@@ -211,7 +211,7 @@ export default function GradeAVinylSite() {
                             className="text-gray-800 mb-1 text-xs"
                             style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
                           >
-                            Matrix / Runout Information:
+                            Matrix / Runout:
                           </h4>
                           <div className="space-y-0.5 text-gray-700 text-xs">
                             <div>Side A: XZAL-40001-A-RE1 RJ STERLING</div>
