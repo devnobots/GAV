@@ -145,7 +145,7 @@ export default function ExplorePage() {
         </header>
 
         {/* Collections Grid */}
-        <main className="px-4 lg:px-8 pb-16">
+        <main className="px-4 lg:px-8 pb-16 -mt-1">
           {/* Desktop: 3 columns with exactly 580x580 containers */}
           <div className="hidden lg:flex lg:flex-wrap lg:justify-center lg:gap-8">
             {/* Filter Bar positioned above first row */}
