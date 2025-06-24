@@ -382,21 +382,27 @@ export default function GradeAVinylSite() {
                           </div>
                         </div>
                         <div>
-                          <h4
-                            className="text-gray-800 mb-1 text-xs"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                          <button
+                            className="flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-colors group"
+                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
                           >
-                            Collector Notes:
-                          </h4>
-                          <div className="text-gray-700 text-xs">
-                            <div className="mb-2">
-                              This pressing features the acclaimed 2017 remix supervised by Giles Martin, son of
-                              original producer George Martin.
-                            </div>
-                            <div className="mb-2">
-                              Cut from the original master tapes at Abbey Road Studios using all-analog mastering chain.
-                            </div>
-                          </div>
+                            <span className="text-xs group-hover:underline decoration-red-500">
+                              Why This Record is Special
+                            </span>
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="transition-transform group-hover:translate-x-0.5"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </button>
                         </div>
                       </div>
                     </div>
