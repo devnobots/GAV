@@ -424,8 +424,8 @@ export default function GradeAVinylSite() {
                         }`}
                       >
                         <div className="h-full" style={{ fontFamily: "Lora, serif" }}>
-                          {/* Header with back button */}
-                          <div className="flex items-center justify-between mb-6 border-b border-gray-200 pb-4">
+                          {/* Top-left Back Navigation */}
+                          <div className="absolute top-0 left-0 mb-6">
                             <button
                               onClick={() => setShowStory(false)}
                               className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
@@ -446,17 +446,42 @@ export default function GradeAVinylSite() {
                               </svg>
                               <span className="text-xs">Back to Details</span>
                             </button>
-                            <h3
-                              className="text-gray-900 text-sm"
-                              style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                          </div>
+
+                          {/* Persistent Album Header - Centered */}
+                          <div className="text-center mb-6 pt-8">
+                            <div
+                              className="text-xs font-normal text-gray-600 mb-1 tracking-wider"
+                              style={{ fontFamily: "Montserrat, sans-serif" }}
+                            >
+                              THE BEATLES
+                            </div>
+                            <h1
+                              className="text-lg font-medium text-gray-900 tracking-wide mb-4"
+                              style={{ fontFamily: "Franklin Gothic Medium, Arial Black, sans-serif" }}
+                            >
+                              SGT. PEPPERS LONELY HEARTS CLUB BAND
+                            </h1>
+                            <div className="w-full h-px bg-gray-300 mb-6"></div>
+                          </div>
+
+                          {/* Story Content Title - Centered with underline */}
+                          <div className="text-center mb-8">
+                            <h2
+                              className="text-gray-900 mb-2"
+                              style={{
+                                fontFamily: "Montserrat, sans-serif",
+                                fontWeight: "600",
+                                fontSize: "16px",
+                              }}
                             >
                               WHY THIS RECORD IS SPECIAL
-                            </h3>
-                            <div className="w-20"></div> {/* Spacer for centering */}
+                            </h2>
+                            <div className="w-32 h-px bg-gray-400 mx-auto"></div>
                           </div>
 
                           {/* Story Content */}
-                          <div className="space-y-6 text-xs leading-relaxed" style={{ lineHeight: "1.7" }}>
+                          <div className="space-y-6 text-xs leading-relaxed px-4" style={{ lineHeight: "1.7" }}>
                             <div>
                               <h4
                                 className="mb-3 text-gray-900"
