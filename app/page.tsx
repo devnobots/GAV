@@ -423,7 +423,7 @@ export default function GradeAVinylSite() {
                           showStory ? "transform translate-x-0" : "transform translate-x-full"
                         }`}
                       >
-                        <div className="h-full p-6" style={{ fontFamily: "Lora, serif" }}>
+                        <div className="h-full pt-6" style={{ fontFamily: "Lora, serif" }}>
                           {/* Story Content Title - Centered with underline */}
                           <div className="text-center mb-8">
                             <h2
@@ -439,35 +439,8 @@ export default function GradeAVinylSite() {
                             <div className="w-32 h-px bg-gray-400 mx-auto"></div>
                           </div>
 
-                          {/* Back to Details button - positioned in middle-left area */}
-                          <div className="absolute left-6" style={{ top: "120px" }}>
-                            <button
-                              onClick={() => setShowStory(false)}
-                              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-                              style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                            >
-                              <svg
-                                width="12"
-                                height="12"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="rotate-180"
-                              >
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                              </svg>
-                              <span className="text-xs">Back to Details</span>
-                            </button>
-                          </div>
-
                           {/* Story Content */}
-                          <div
-                            className="space-y-6 text-xs leading-relaxed"
-                            style={{ lineHeight: "1.7", marginTop: "60px" }}
-                          >
+                          <div className="space-y-6 text-xs leading-relaxed px-4 pb-20" style={{ lineHeight: "1.7" }}>
                             <div>
                               <h4
                                 className="mb-3 text-gray-900"
@@ -558,8 +531,28 @@ export default function GradeAVinylSite() {
                       </div>
                     </div>
 
-                    {/* Close button positioned at bottom */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                    {/* Back to Details and Close buttons positioned at bottom */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
+                      <button
+                        onClick={() => setShowStory(false)}
+                        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                        style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="rotate-180"
+                        >
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                        <span className="text-xs">Back to Details</span>
+                      </button>
                       <button
                         onClick={() => setShowPressingDetails(false)}
                         className="bg-gray-900 text-white px-6 py-2 text-xs hover:bg-gray-700 transition-colors"
