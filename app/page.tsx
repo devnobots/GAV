@@ -45,6 +45,7 @@ export default function GradeAVinylSite() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [showDialog, setShowDialog] = useState(false)
   const [showPressingDetails, setShowPressingDetails] = useState(false)
+  const [showSpecialStory, setShowSpecialStory] = useState(false)
 
   const thumbnailRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
 
@@ -383,6 +384,7 @@ export default function GradeAVinylSite() {
                         </div>
                         <div>
                           <button
+                            onClick={() => setShowSpecialStory(!showSpecialStory)}
                             className="flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-colors group"
                             style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
                           >
@@ -398,11 +400,118 @@ export default function GradeAVinylSite() {
                               strokeWidth="2"
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              className="transition-transform group-hover:translate-x-0.5"
+                              className={`transition-transform ${showSpecialStory ? "rotate-90" : "group-hover:translate-x-0.5"}`}
                             >
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Sliding Story Content */}
+                    <div className="relative overflow-hidden mt-6">
+                      <div
+                        className={`transition-transform duration-500 ease-in-out ${
+                          showSpecialStory ? "-translate-x-full" : "translate-x-0"
+                        }`}
+                      >
+                        {/* Original content placeholder - this will slide left */}
+                        <div className="h-4"></div>
+                      </div>
+
+                      <div
+                        className={`absolute top-0 left-full w-full transition-transform duration-500 ease-in-out ${
+                          showSpecialStory ? "-translate-x-full" : "translate-x-0"
+                        }`}
+                      >
+                        {/* Special Story Content */}
+                        <div className="space-y-6 text-sm" style={{ fontFamily: "Lora, serif", lineHeight: "1.7" }}>
+                          <div>
+                            <h4
+                              className="text-gray-900 mb-3"
+                              style={{
+                                fontFamily: "Montserrat, sans-serif",
+                                fontWeight: "600",
+                                fontSize: "18px",
+                              }}
+                            >
+                              1. The Significance of This Pressing
+                            </h4>
+                            <p className="text-gray-700">
+                              This specific edition of Sgt. Pepper's Lonely Hearts Club Band represents the critically
+                              acclaimed 2017 Giles Martin Stereo Remix. Overseen by the son of original producer George
+                              Martin, this remix was painstakingly crafted from the original master tapes, offering
+                              listeners a fresh, yet faithful, sonic perspective. It's not merely a reissue but a
+                              meticulous re-evaluation that brings out new dimensions in a beloved classic, making it an
+                              essential acquisition for both new audiophiles and seasoned Beatles collectors seeking the
+                              definitive modern stereo experience.
+                            </p>
+                          </div>
+
+                          <div>
+                            <h4
+                              className="text-gray-900 mb-3"
+                              style={{
+                                fontFamily: "Montserrat, sans-serif",
+                                fontWeight: "600",
+                                fontSize: "18px",
+                              }}
+                            >
+                              2. Mastering & Sonic Fidelity
+                            </h4>
+                            <p className="text-gray-700">
+                              The "XZAL-40001-A-RE1 RJ STERLING" matrix inscription for Side A confirms a master cut by
+                              the revered Sean Magee (identified by 'RJ') at the legendary Sterling Sound studios.
+                              Magee's all-analog mastering chain on this pressing ensures unparalleled warmth, depth,
+                              and clarity, allowing the intricate layers of Sgt. Pepper's to breathe with remarkable
+                              presence. This particular cut is highly sought after for its dynamic range and faithful
+                              translation of the original recording's magic, making it a true sonic benchmark.
+                            </p>
+                          </div>
+
+                          <div>
+                            <h4
+                              className="text-gray-900 mb-3"
+                              style={{
+                                fontFamily: "Montserrat, sans-serif",
+                                fontWeight: "600",
+                                fontSize: "18px",
+                              }}
+                            >
+                              3. Rarity & Condition Insights
+                            </h4>
+                            <p className="text-gray-700">
+                              While the 2017 remix saw significant distribution, specific pressings with optimal matrix
+                              numbers like this "RE1 RJ STERLING" cut are increasingly desirable and harder to find in
+                              pristine condition. Our offering features Media: Near Mint (NM) and Sleeve: Near Mint
+                              (NM), indicating a record that has been meticulously cared for, showing virtually no signs
+                              of play or wear. This combination of exceptional mastering and outstanding preservation
+                              positions it as a premier copy for the discerning collector.
+                            </p>
+                          </div>
+
+                          <div>
+                            <h4
+                              className="text-gray-900 mb-3"
+                              style={{
+                                fontFamily: "Montserrat, sans-serif",
+                                fontWeight: "600",
+                                fontSize: "18px",
+                              }}
+                            >
+                              4. A Collector's Perspective
+                            </h4>
+                            <p className="text-gray-700">
+                              Sgt. Pepper's remains a cornerstone of popular music, and owning a copy that unlocks its
+                              full sonic potential is a profound experience. This pressing allows the listener to hear
+                              the album as perhaps never before, with newfound detail and immersive soundstaging. It's
+                              more than just a record; it's a meticulously crafted artifact that bridges the past and
+                              present, inviting a deeper connection with one of history's most iconic albums. For the
+                              collector, it's a testament to the enduring artistry of The Beatles and the pinnacle of
+                              modern vinyl production.
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
