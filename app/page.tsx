@@ -45,7 +45,7 @@ export default function GradeAVinylSite() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [showDialog, setShowDialog] = useState(false)
   const [showPressingDetails, setShowPressingDetails] = useState(false)
-  const [showSpecialStory, setShowSpecialStory] = useState(false)
+  const [showStory, setShowStory] = useState(false)
 
   const thumbnailRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
 
@@ -191,326 +191,357 @@ export default function GradeAVinylSite() {
                       </h1>
                     </div>
 
-                    <div
-                      className="grid h-full text-xs leading-tight"
-                      style={{
-                        fontFamily: "Lora, serif",
-                        gridTemplateColumns: "1fr 1.2fr 1.3fr",
-                        gap: "1.5rem",
-                      }}
-                    >
-                      {/* Column 1 */}
-                      <div className="space-y-4">
-                        <h3
-                          className="text-gray-900 text-sm border-b border-gray-200 pb-1"
-                          style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
-                        >
-                          PRESSING DETAILS
-                        </h3>
-                        <div>
-                          <h4
-                            className="text-gray-800 mb-1 text-xs"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                          >
-                            Matrix / Runout:
-                          </h4>
-                          <div className="space-y-0.5 text-gray-700 text-xs">
-                            <div>Side A: XZAL-40001-A-RE1 RJ STERLING</div>
-                            <div>Side B: XZAL-40001-B-RE1 RJ STERLING</div>
-                          </div>
-                        </div>
-                        <div>
-                          <h4
-                            className="text-gray-800 mb-1 text-xs"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                          >
-                            Audio & Mastering:
-                          </h4>
-                          <div className="space-y-0.5 text-gray-700 text-xs">
-                            <div>
-                              <span className="font-medium">Source:</span> All Analog (AAA)
-                            </div>
-                            <div>
-                              <span className="font-medium">Mastering:</span> Giles Martin, Sam Okell
-                            </div>
-                            <div>
-                              <span className="font-medium">Lacquer:</span> Miles Showell
-                            </div>
-                            <div>
-                              <span className="font-medium">Mix:</span> 2017 Stereo Remix
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <h4
-                            className="text-gray-800 mb-1 text-xs"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                          >
-                            Edition Details:
-                          </h4>
-                          <div className="space-y-0.5 text-gray-700 text-xs">
-                            <div>
-                              <span className="font-medium">Pressing Year:</span> 2017
-                            </div>
-                            <div>
-                              <span className="font-medium">Original Year:</span> 1967
-                            </div>
-                            <div>
-                              <span className="font-medium">Country:</span> United Kingdom
-                            </div>
-                            <div>
-                              <span className="font-medium">Edition:</span> 50th Anniversary
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Column 2 */}
-                      <div className="space-y-4">
-                        <h3
-                          className="text-gray-900 text-sm border-b border-gray-200 pb-1"
-                          style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
-                        >
-                          PHYSICAL IDENTIFIERS
-                        </h3>
-                        <div>
-                          <h4
-                            className="text-gray-800 mb-1 text-xs"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                          >
-                            Catalog Numbers:
-                          </h4>
-                          <div className="space-y-0.5 text-gray-700 text-xs">
-                            <div>0602557455984, PCTC 255</div>
-                          </div>
-                        </div>
-                        <div>
-                          <h4
-                            className="text-gray-800 mb-1 text-xs"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                          >
-                            Physical Attributes:
-                          </h4>
-                          <div className="space-y-0.5 text-gray-700 text-xs">
-                            <div>
-                              <span className="font-medium">Vinyl Color:</span> Black
-                            </div>
-                            <div>
-                              <span className="font-medium">Weight:</span> 180g
-                            </div>
-                            <div>
-                              <span className="font-medium">Discs:</span> 1LP
-                            </div>
-                            <div>
-                              <span className="font-medium">Format:</span> LP
-                            </div>
-                            <div>
-                              <span className="font-medium">Sleeve:</span> Single Jacket
-                            </div>
-                            <div>
-                              <span className="font-medium">Inner:</span> Poly-lined Anti-Static
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <h4
-                            className="text-gray-800 mb-1 text-xs"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                          >
-                            Supplementary Details:
-                          </h4>
-                          <div className="space-y-0.5 text-gray-700 text-xs">
-                            <div>
-                              <span className="font-medium">Extras:</span> Cut-Out Figures Sheet
-                            </div>
-                            <div>
-                              <span className="font-medium">Barcode:</span> 0602557455984
-                            </div>
-                            <div>
-                              <span className="font-medium">Studio:</span> Abbey Road
-                            </div>
-                            <div>
-                              <span className="font-medium">Speed:</span> 33⅓ RPM
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Column 3 */}
-                      <div className="space-y-4">
-                        <h3
-                          className="text-gray-900 text-sm border-b border-gray-200 pb-1"
-                          style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
-                        >
-                          CONDITION & PROVENANCE
-                        </h3>
-                        <div>
-                          <h4
-                            className="text-gray-800 mb-1 text-xs"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                          >
-                            Condition Assessment:
-                          </h4>
-                          <div className="space-y-0.5 text-gray-700 text-xs">
-                            <div>
-                              <span className="font-medium">Media:</span> Near Mint (NM)
-                            </div>
-                            <div>
-                              <span className="font-medium">Sleeve:</span> Near Mint (NM)
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <h4
-                            className="text-gray-800 mb-1 text-xs"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                          >
-                            Technical Specifications:
-                          </h4>
-                          <div className="space-y-0.5 text-gray-700 text-xs">
-                            <div>
-                              <span className="font-medium">Rights:</span> PRS, MCPS
-                            </div>
-                            <div>
-                              <span className="font-medium">Pressing Plant:</span> Optimal Media
-                            </div>
-                            <div>
-                              <span className="font-medium">Matrix Style:</span> Hand-etched
-                            </div>
-                            <div>
-                              <span className="font-medium">Label Variant:</span> Parlophone
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <button
-                            onClick={() => setShowSpecialStory(!showSpecialStory)}
-                            className="flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-colors group"
-                            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
-                          >
-                            <span className="text-xs group-hover:underline decoration-red-500">
-                              Why This Record is Special
-                            </span>
-                            <svg
-                              width="12"
-                              height="12"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className={`transition-transform ${showSpecialStory ? "rotate-90" : "group-hover:translate-x-0.5"}`}
-                            >
-                              <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Sliding Story Content */}
-                    <div className="relative overflow-hidden mt-6">
+                    <div className="relative overflow-hidden h-full">
+                      {/* Pressing Details - slides left when story is shown */}
                       <div
-                        className={`transition-transform duration-500 ease-in-out ${
-                          showSpecialStory ? "-translate-x-full" : "translate-x-0"
+                        className={`absolute inset-0 transition-transform duration-500 ease-in-out ${
+                          showStory ? "transform -translate-x-full" : "transform translate-x-0"
                         }`}
                       >
-                        {/* Original content placeholder - this will slide left */}
-                        <div className="h-4"></div>
+                        <div
+                          className="grid h-full text-xs leading-tight"
+                          style={{
+                            fontFamily: "Lora, serif",
+                            gridTemplateColumns: "1fr 1.2fr 1.3fr",
+                            gap: "1.5rem",
+                          }}
+                        >
+                          {/* Column 1 */}
+                          <div className="space-y-4">
+                            <h3
+                              className="text-gray-900 text-sm border-b border-gray-200 pb-1"
+                              style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                            >
+                              PRESSING DETAILS
+                            </h3>
+                            <div>
+                              <h4
+                                className="text-gray-800 mb-1 text-xs"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                              >
+                                Matrix / Runout:
+                              </h4>
+                              <div className="space-y-0.5 text-gray-700 text-xs">
+                                <div>Side A: XZAL-40001-A-RE1 RJ STERLING</div>
+                                <div>Side B: XZAL-40001-B-RE1 RJ STERLING</div>
+                              </div>
+                            </div>
+                            <div>
+                              <h4
+                                className="text-gray-800 mb-1 text-xs"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                              >
+                                Audio & Mastering:
+                              </h4>
+                              <div className="space-y-0.5 text-gray-700 text-xs">
+                                <div>
+                                  <span className="font-medium">Source:</span> All Analog (AAA)
+                                </div>
+                                <div>
+                                  <span className="font-medium">Mastering:</span> Giles Martin, Sam Okell
+                                </div>
+                                <div>
+                                  <span className="font-medium">Lacquer:</span> Miles Showell
+                                </div>
+                                <div>
+                                  <span className="font-medium">Mix:</span> 2017 Stereo Remix
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <h4
+                                className="text-gray-800 mb-1 text-xs"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                              >
+                                Edition Details:
+                              </h4>
+                              <div className="space-y-0.5 text-gray-700 text-xs">
+                                <div>
+                                  <span className="font-medium">Pressing Year:</span> 2017
+                                </div>
+                                <div>
+                                  <span className="font-medium">Original Year:</span> 1967
+                                </div>
+                                <div>
+                                  <span className="font-medium">Country:</span> United Kingdom
+                                </div>
+                                <div>
+                                  <span className="font-medium">Edition:</span> 50th Anniversary
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Column 2 */}
+                          <div className="space-y-4">
+                            <h3
+                              className="text-gray-900 text-sm border-b border-gray-200 pb-1"
+                              style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                            >
+                              PHYSICAL IDENTIFIERS
+                            </h3>
+                            <div>
+                              <h4
+                                className="text-gray-800 mb-1 text-xs"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                              >
+                                Catalog Numbers:
+                              </h4>
+                              <div className="space-y-0.5 text-gray-700 text-xs">
+                                <div>0602557455984, PCTC 255</div>
+                              </div>
+                            </div>
+                            <div>
+                              <h4
+                                className="text-gray-800 mb-1 text-xs"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                              >
+                                Physical Attributes:
+                              </h4>
+                              <div className="space-y-0.5 text-gray-700 text-xs">
+                                <div>
+                                  <span className="font-medium">Vinyl Color:</span> Black
+                                </div>
+                                <div>
+                                  <span className="font-medium">Weight:</span> 180g
+                                </div>
+                                <div>
+                                  <span className="font-medium">Discs:</span> 1LP
+                                </div>
+                                <div>
+                                  <span className="font-medium">Format:</span> LP
+                                </div>
+                                <div>
+                                  <span className="font-medium">Sleeve:</span> Single Jacket
+                                </div>
+                                <div>
+                                  <span className="font-medium">Inner:</span> Poly-lined Anti-Static
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <h4
+                                className="text-gray-800 mb-1 text-xs"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                              >
+                                Supplementary Details:
+                              </h4>
+                              <div className="space-y-0.5 text-gray-700 text-xs">
+                                <div>
+                                  <span className="font-medium">Extras:</span> Cut-Out Figures Sheet
+                                </div>
+                                <div>
+                                  <span className="font-medium">Barcode:</span> 0602557455984
+                                </div>
+                                <div>
+                                  <span className="font-medium">Studio:</span> Abbey Road
+                                </div>
+                                <div>
+                                  <span className="font-medium">Speed:</span> 33⅓ RPM
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Column 3 */}
+                          <div className="space-y-4">
+                            <h3
+                              className="text-gray-900 text-sm border-b border-gray-200 pb-1"
+                              style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                            >
+                              CONDITION & PROVENANCE
+                            </h3>
+                            <div>
+                              <h4
+                                className="text-gray-800 mb-1 text-xs"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                              >
+                                Condition Assessment:
+                              </h4>
+                              <div className="space-y-0.5 text-gray-700 text-xs">
+                                <div>
+                                  <span className="font-medium">Media:</span> Near Mint (NM)
+                                </div>
+                                <div>
+                                  <span className="font-medium">Sleeve:</span> Near Mint (NM)
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <h4
+                                className="text-gray-800 mb-1 text-xs"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
+                              >
+                                Technical Specifications:
+                              </h4>
+                              <div className="space-y-0.5 text-gray-700 text-xs">
+                                <div>
+                                  <span className="font-medium">Rights:</span> PRS, MCPS
+                                </div>
+                                <div>
+                                  <span className="font-medium">Pressing Plant:</span> Optimal Media
+                                </div>
+                                <div>
+                                  <span className="font-medium">Matrix Style:</span> Hand-etched
+                                </div>
+                                <div>
+                                  <span className="font-medium">Label Variant:</span> Parlophone
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <button
+                                onClick={() => setShowStory(true)}
+                                className="flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-colors group"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                              >
+                                <span className="text-xs group-hover:underline decoration-red-500">
+                                  Why This Record is Special
+                                </span>
+                                <svg
+                                  width="12"
+                                  height="12"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  className="transition-transform group-hover:translate-x-0.5"
+                                >
+                                  <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
+                      {/* Story Content - slides in from right */}
                       <div
-                        className={`absolute top-0 left-full w-full transition-transform duration-500 ease-in-out ${
-                          showSpecialStory ? "-translate-x-full" : "translate-x-0"
+                        className={`absolute inset-0 transition-transform duration-500 ease-in-out overflow-y-auto ${
+                          showStory ? "transform translate-x-0" : "transform translate-x-full"
                         }`}
                       >
-                        {/* Special Story Content */}
-                        <div className="space-y-6 text-sm" style={{ fontFamily: "Lora, serif", lineHeight: "1.7" }}>
-                          <div>
-                            <h4
-                              className="text-gray-900 mb-3"
-                              style={{
-                                fontFamily: "Montserrat, sans-serif",
-                                fontWeight: "600",
-                                fontSize: "18px",
-                              }}
+                        <div className="h-full" style={{ fontFamily: "Lora, serif" }}>
+                          {/* Header with back button */}
+                          <div className="flex items-center justify-between mb-6 border-b border-gray-200 pb-4">
+                            <button
+                              onClick={() => setShowStory(false)}
+                              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                              style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
                             >
-                              1. The Significance of This Pressing
-                            </h4>
-                            <p className="text-gray-700">
-                              This specific edition of Sgt. Pepper's Lonely Hearts Club Band represents the critically
-                              acclaimed 2017 Giles Martin Stereo Remix. Overseen by the son of original producer George
-                              Martin, this remix was painstakingly crafted from the original master tapes, offering
-                              listeners a fresh, yet faithful, sonic perspective. It's not merely a reissue but a
-                              meticulous re-evaluation that brings out new dimensions in a beloved classic, making it an
-                              essential acquisition for both new audiophiles and seasoned Beatles collectors seeking the
-                              definitive modern stereo experience.
-                            </p>
+                              <svg
+                                width="12"
+                                height="12"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="rotate-180"
+                              >
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                              </svg>
+                              <span className="text-xs">Back to Details</span>
+                            </button>
+                            <h3
+                              className="text-gray-900 text-sm"
+                              style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                            >
+                              WHY THIS RECORD IS SPECIAL
+                            </h3>
+                            <div className="w-20"></div> {/* Spacer for centering */}
                           </div>
 
-                          <div>
-                            <h4
-                              className="text-gray-900 mb-3"
-                              style={{
-                                fontFamily: "Montserrat, sans-serif",
-                                fontWeight: "600",
-                                fontSize: "18px",
-                              }}
-                            >
-                              2. Mastering & Sonic Fidelity
-                            </h4>
-                            <p className="text-gray-700">
-                              The "XZAL-40001-A-RE1 RJ STERLING" matrix inscription for Side A confirms a master cut by
-                              the revered Sean Magee (identified by 'RJ') at the legendary Sterling Sound studios.
-                              Magee's all-analog mastering chain on this pressing ensures unparalleled warmth, depth,
-                              and clarity, allowing the intricate layers of Sgt. Pepper's to breathe with remarkable
-                              presence. This particular cut is highly sought after for its dynamic range and faithful
-                              translation of the original recording's magic, making it a true sonic benchmark.
-                            </p>
-                          </div>
+                          {/* Story Content */}
+                          <div className="space-y-6 text-xs leading-relaxed" style={{ lineHeight: "1.7" }}>
+                            <div>
+                              <h4
+                                className="mb-3 text-gray-900"
+                                style={{
+                                  fontFamily: "Montserrat, sans-serif",
+                                  fontWeight: "600",
+                                  fontSize: "14px",
+                                }}
+                              >
+                                1. The Significance of This Pressing
+                              </h4>
+                              <p className="text-gray-700">
+                                This specific edition of Sgt. Pepper's Lonely Hearts Club Band represents the critically
+                                acclaimed 2017 Giles Martin Stereo Remix. Overseen by the son of original producer
+                                George Martin, this remix was painstakingly crafted from the original master tapes,
+                                offering listeners a fresh, yet faithful, sonic perspective. It's not merely a reissue
+                                but a meticulous re-evaluation that brings out new dimensions in a beloved classic,
+                                making it an essential acquisition for both new audiophiles and seasoned Beatles
+                                collectors seeking the definitive modern stereo experience.
+                              </p>
+                            </div>
 
-                          <div>
-                            <h4
-                              className="text-gray-900 mb-3"
-                              style={{
-                                fontFamily: "Montserrat, sans-serif",
-                                fontWeight: "600",
-                                fontSize: "18px",
-                              }}
-                            >
-                              3. Rarity & Condition Insights
-                            </h4>
-                            <p className="text-gray-700">
-                              While the 2017 remix saw significant distribution, specific pressings with optimal matrix
-                              numbers like this "RE1 RJ STERLING" cut are increasingly desirable and harder to find in
-                              pristine condition. Our offering features Media: Near Mint (NM) and Sleeve: Near Mint
-                              (NM), indicating a record that has been meticulously cared for, showing virtually no signs
-                              of play or wear. This combination of exceptional mastering and outstanding preservation
-                              positions it as a premier copy for the discerning collector.
-                            </p>
-                          </div>
+                            <div>
+                              <h4
+                                className="mb-3 text-gray-900"
+                                style={{
+                                  fontFamily: "Montserrat, sans-serif",
+                                  fontWeight: "600",
+                                  fontSize: "14px",
+                                }}
+                              >
+                                2. Mastering & Sonic Fidelity
+                              </h4>
+                              <p className="text-gray-700">
+                                The "XZAL-40001-A-RE1 RJ STERLING" matrix inscription for Side A confirms a master cut
+                                by the revered Sean Magee (identified by 'RJ') at the legendary Sterling Sound studios.
+                                Magee's all-analog mastering chain on this pressing ensures unparalleled warmth, depth,
+                                and clarity, allowing the intricate layers of Sgt. Pepper's to breathe with remarkable
+                                presence. This particular cut is highly sought after for its dynamic range and faithful
+                                translation of the original recording's magic, making it a true sonic benchmark.
+                              </p>
+                            </div>
 
-                          <div>
-                            <h4
-                              className="text-gray-900 mb-3"
-                              style={{
-                                fontFamily: "Montserrat, sans-serif",
-                                fontWeight: "600",
-                                fontSize: "18px",
-                              }}
-                            >
-                              4. A Collector's Perspective
-                            </h4>
-                            <p className="text-gray-700">
-                              Sgt. Pepper's remains a cornerstone of popular music, and owning a copy that unlocks its
-                              full sonic potential is a profound experience. This pressing allows the listener to hear
-                              the album as perhaps never before, with newfound detail and immersive soundstaging. It's
-                              more than just a record; it's a meticulously crafted artifact that bridges the past and
-                              present, inviting a deeper connection with one of history's most iconic albums. For the
-                              collector, it's a testament to the enduring artistry of The Beatles and the pinnacle of
-                              modern vinyl production.
-                            </p>
+                            <div>
+                              <h4
+                                className="mb-3 text-gray-900"
+                                style={{
+                                  fontFamily: "Montserrat, sans-serif",
+                                  fontWeight: "600",
+                                  fontSize: "14px",
+                                }}
+                              >
+                                3. Rarity & Condition Insights
+                              </h4>
+                              <p className="text-gray-700">
+                                While the 2017 remix saw significant distribution, specific pressings with optimal
+                                matrix numbers like this "RE1 RJ STERLING" cut are increasingly desirable and harder to
+                                find in pristine condition. Our offering features Media: Near Mint (NM) and Sleeve: Near
+                                Mint (NM), indicating a record that has been meticulously cared for, showing virtually
+                                no signs of play or wear. This combination of exceptional mastering and outstanding
+                                preservation positions it as a premier copy for the discerning collector.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h4
+                                className="mb-3 text-gray-900"
+                                style={{
+                                  fontFamily: "Montserrat, sans-serif",
+                                  fontWeight: "600",
+                                  fontSize: "14px",
+                                }}
+                              >
+                                4. A Collector's Perspective
+                              </h4>
+                              <p className="text-gray-700">
+                                Sgt. Pepper's remains a cornerstone of popular music, and owning a copy that unlocks its
+                                full sonic potential is a profound experience. This pressing allows the listener to hear
+                                the album as perhaps never before, with newfound detail and immersive soundstaging. It's
+                                more than just a record; it's a meticulously crafted artifact that bridges the past and
+                                present, inviting a deeper connection with one of history's most iconic albums. For the
+                                collector, it's a testament to the enduring artistry of The Beatles and the pinnacle of
+                                modern vinyl production.
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
