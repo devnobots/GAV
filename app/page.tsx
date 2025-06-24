@@ -423,10 +423,9 @@ export default function GradeAVinylSite() {
                           showStory ? "transform translate-x-0" : "transform translate-x-full"
                         }`}
                       >
-                        <div className="h-full pt-6" style={{ fontFamily: "Lora, serif" }}>
-                          {/* Story Content Title - Centered with underline */}
-                          {/* Story Content Title with Back Button - Aligned horizontally */}
-                          <div className="flex items-center justify-between mb-8 px-4">
+                        <div className="h-full" style={{ fontFamily: "Lora, serif" }}>
+                          {/* Back to Details and Story Title - positioned at column header level */}
+                          <div className="flex items-center justify-between mb-6">
                             <button
                               onClick={() => setShowStory(false)}
                               className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
@@ -449,16 +448,14 @@ export default function GradeAVinylSite() {
                             </button>
                             <div className="flex-1 text-center">
                               <h2
-                                className="text-gray-900 mb-2"
+                                className="text-gray-900 text-sm border-b border-gray-200 pb-1"
                                 style={{
                                   fontFamily: "Montserrat, sans-serif",
                                   fontWeight: "600",
-                                  fontSize: "16px",
                                 }}
                               >
                                 WHY THIS RECORD IS SPECIAL
                               </h2>
-                              <div className="w-32 h-px bg-gray-400 mx-auto"></div>
                             </div>
                             <div className="w-20"></div> {/* Spacer for centering */}
                           </div>
