@@ -425,18 +425,42 @@ export default function GradeAVinylSite() {
                       >
                         <div className="h-full pt-6" style={{ fontFamily: "Lora, serif" }}>
                           {/* Story Content Title - Centered with underline */}
-                          <div className="text-center mb-8">
-                            <h2
-                              className="text-gray-900 mb-2"
-                              style={{
-                                fontFamily: "Montserrat, sans-serif",
-                                fontWeight: "600",
-                                fontSize: "16px",
-                              }}
+                          {/* Story Content Title with Back Button - Aligned horizontally */}
+                          <div className="flex items-center justify-between mb-8 px-4">
+                            <button
+                              onClick={() => setShowStory(false)}
+                              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                              style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
                             >
-                              WHY THIS RECORD IS SPECIAL
-                            </h2>
-                            <div className="w-32 h-px bg-gray-400 mx-auto"></div>
+                              <svg
+                                width="12"
+                                height="12"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="rotate-180"
+                              >
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                              </svg>
+                              <span className="text-xs">Back to Details</span>
+                            </button>
+                            <div className="flex-1 text-center">
+                              <h2
+                                className="text-gray-900 mb-2"
+                                style={{
+                                  fontFamily: "Montserrat, sans-serif",
+                                  fontWeight: "600",
+                                  fontSize: "16px",
+                                }}
+                              >
+                                WHY THIS RECORD IS SPECIAL
+                              </h2>
+                              <div className="w-32 h-px bg-gray-400 mx-auto"></div>
+                            </div>
+                            <div className="w-20"></div> {/* Spacer for centering */}
                           </div>
 
                           {/* Story Content */}
@@ -532,27 +556,8 @@ export default function GradeAVinylSite() {
                     </div>
 
                     {/* Back to Details and Close buttons positioned at bottom */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
-                      <button
-                        onClick={() => setShowStory(false)}
-                        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-                        style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "500" }}
-                      >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="rotate-180"
-                        >
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                        <span className="text-xs">Back to Details</span>
-                      </button>
+                    {/* Close button positioned at bottom */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
                       <button
                         onClick={() => setShowPressingDetails(false)}
                         className="bg-gray-900 text-white px-6 py-2 text-xs hover:bg-gray-700 transition-colors"
