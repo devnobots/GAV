@@ -425,7 +425,7 @@ export default function GradeAVinylSite() {
                       >
                         <div className="h-full" style={{ fontFamily: "Lora, serif" }}>
                           {/* Back to Details and Story Title - positioned at column header level */}
-                          <div className="flex items-center justify-between mb-6">
+                          <div className="flex items-center mb-6">
                             <button
                               onClick={() => setShowStory(false)}
                               className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
@@ -448,20 +448,21 @@ export default function GradeAVinylSite() {
                             </button>
                             <div className="flex-1 text-center">
                               <h2
-                                className="text-gray-900 text-sm border-b border-gray-200 pb-1"
+                                className="text-gray-900 mb-2"
                                 style={{
                                   fontFamily: "Montserrat, sans-serif",
                                   fontWeight: "600",
+                                  fontSize: "16px",
                                 }}
                               >
                                 WHY THIS RECORD IS SPECIAL
                               </h2>
+                              <div className="w-32 h-px bg-gray-400 mx-auto"></div>
                             </div>
-                            <div className="w-20"></div> {/* Spacer for centering */}
                           </div>
 
                           {/* Story Content */}
-                          <div className="space-y-6 text-xs leading-relaxed px-4 pb-20" style={{ lineHeight: "1.7" }}>
+                          <div className="space-y-6 text-xs leading-relaxed px-6 pb-20" style={{ lineHeight: "1.7" }}>
                             <div>
                               <h4
                                 className="mb-3 text-gray-900"
