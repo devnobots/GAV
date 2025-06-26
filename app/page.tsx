@@ -743,7 +743,7 @@ export default function GradeAVinylSite() {
                     className="hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
                     style={{
                       color: "#333333",
-                      fontSize: "22px",
+                      fontSize: "20px",
                       verticalAlign: "text-bottom",
                       position: "relative",
                       top: "2px",
