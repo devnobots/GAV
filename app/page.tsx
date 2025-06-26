@@ -175,8 +175,8 @@ export default function GradeAVinylSite() {
 
         {/* Main Content */}
         <main className="pt-0">
-          <div className="flex gap-12">
-            {/* Large Album Display - 3D Flip Container */}
+          <div className="flex gap-12 items-start">
+            {/* Left Column - Large Album Display */}
             <div className="flex-1 max-w-2xl">
               <div className="aspect-square w-full relative" style={{ perspective: "1000px" }}>
                 <div
@@ -716,10 +716,20 @@ export default function GradeAVinylSite() {
               </div>
             </div>
 
-            {/* Right Sidebar - Thumbnails aligned with TOP of album */}
-            <div className="flex-shrink-0 relative" style={{ width: "400px" }}>
-              {/* Zoom Label - positioned ABOVE the thumbnails */}
-              <div className="text-center relative mb-2" style={{ marginTop: "-26px" }}>
+            {/* Right Column - Product Detail Container */}
+            <div
+              className="flex-shrink-0 h-full flex flex-col"
+              style={{
+                width: "400px",
+                backgroundColor: "#FBFBFB",
+                border: "1px solid #E0E0E0",
+                borderRadius: "3px",
+                padding: "20px",
+                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.05)",
+              }}
+            >
+              {/* Zoom Label */}
+              <div className="text-center relative mb-2">
                 <span className="text-sm font-medium text-gray-500">
                   Hasselblad Precision Zoom
                   <span
@@ -800,40 +810,42 @@ export default function GradeAVinylSite() {
                 </div>
               </div>
 
-              {/* Thumbnails Grid - aligned with top of large album */}
-              <div className="grid grid-cols-2 gap-6">
-                {albumViews.map((view) => (
-                  <div
-                    key={view.id}
-                    className="cursor-none"
-                    ref={(el) => {
-                      thumbnailRefs.current[view.id] = el
-                    }}
-                    onMouseEnter={() => handleThumbnailEnter(view.id)}
-                    onMouseMove={(e) => handleMouseMove(e, view.id)}
-                    onMouseLeave={handleThumbnailLeave}
-                  >
-                    <div className="aspect-square relative group">
-                      <Image
-                        src={view.image || "/placeholder.svg"}
-                        alt={view.label}
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-cover shadow-lg transition-transform group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all" />
+              {/* Thumbnails Grid - flex-1 to fill remaining space */}
+              <div className="flex-1 flex flex-col">
+                <div className="grid grid-cols-2 gap-6 flex-1">
+                  {albumViews.map((view) => (
+                    <div
+                      key={view.id}
+                      className="cursor-none flex flex-col"
+                      ref={(el) => {
+                        thumbnailRefs.current[view.id] = el
+                      }}
+                      onMouseEnter={() => handleThumbnailEnter(view.id)}
+                      onMouseMove={(e) => handleMouseMove(e, view.id)}
+                      onMouseLeave={handleThumbnailLeave}
+                    >
+                      <div className="aspect-square relative group">
+                        <Image
+                          src={view.image || "/placeholder.svg"}
+                          alt={view.label}
+                          width={200}
+                          height={200}
+                          className="w-full h-full object-cover shadow-lg transition-transform group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all" />
+                      </div>
+                      <div className="text-center mt-2">
+                        <span
+                          className={`text-xs font-medium ${
+                            selectedView === view.id && isHovering ? "text-red-500 font-bold" : "text-gray-500"
+                          }`}
+                        >
+                          {view.label}
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-center mt-2">
-                      <span
-                        className={`text-xs font-medium ${
-                          selectedView === view.id && isHovering ? "text-red-500 font-bold" : "text-gray-500"
-                        }`}
-                      >
-                        {view.label}
-                      </span>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
