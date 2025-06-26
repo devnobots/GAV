@@ -114,7 +114,7 @@ export default function GradeAVinylSite() {
       {/* Main Content Container - Everything aligned */}
       <div className="max-w-7xl mx-auto px-8">
         {/* Header */}
-        <header className="w-full pt-4 pb-2">
+        <header className="w-full pt-2 pb-1">
           <div className="flex justify-center relative">
             <div className="w-full max-w-2xl text-center">
               {/* Logo */}
@@ -157,7 +157,7 @@ export default function GradeAVinylSite() {
         </header>
 
         {/* Breadcrumb Navigation */}
-        <nav className="mb-4">
+        <nav className="mb-2">
           <div className="flex justify-start">
             <div className="w-full max-w-2xl">
               <div className="flex items-center space-x-2 text-sm text-gray-600">
@@ -174,7 +174,7 @@ export default function GradeAVinylSite() {
           <div className="flex gap-12">
             {/* Large Album Display - 3D Flip Container */}
             <div className="flex-1 max-w-2xl">
-              <div className="aspect-square w-full relative" style={{ perspective: "1000px" }}>
+              <div className="aspect-square w-full relative max-h-[50vh]" style={{ perspective: "1000px" }}>
                 <div
                   className={`w-full h-full relative transition-transform duration-700 ease-in-out transform-style-preserve-3d ${
                     showPressingDetails ? "rotate-y-180" : ""
@@ -620,13 +620,13 @@ export default function GradeAVinylSite() {
               </div>
 
               {/* Album Title and Shopping Cart Section */}
-              <div className="mt-3 w-full text-center">
+              <div className="mt-1 w-full text-center">
                 <h2 className="text-2xl font-bold text-gray-900">Sgt. Pepper's Lonely Heart Club Band</h2>
                 {/* Price - moved up to be directly after title */}
-                <div className="mt-3 text-center">
+                <div className="mt-1 text-center">
                   <span className="text-3xl font-bold text-gray-900">$89.99</span>
                 </div>
-                <div className="mt-3">
+                <div className="mt-2">
                   <button
                     onClick={() => setShowPressingDetails(true)}
                     className="text-gray-700 hover:text-red-600 transition-colors text-xs tracking-wide"
@@ -636,7 +636,7 @@ export default function GradeAVinylSite() {
                   </button>
                 </div>
                 {/* Add to Cart Button - moved to be directly after VIEW DETAILS */}
-                <div className="mt-4 flex justify-center">
+                <div className="mt-2 flex justify-center">
                   <button
                     onClick={handleAddToCart}
                     disabled={isAdding}
