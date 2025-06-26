@@ -728,18 +728,26 @@ export default function GradeAVinylSite() {
                 boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.05)",
               }}
             >
-              {/* Zoom Label */}
-              <div className="text-center relative mb-2">
-                <span className="text-sm font-medium text-gray-500">
+              {/* Section Title - Hasselblad Precision Zoom */}
+              <div className="text-center relative" style={{ marginBottom: "16px" }}>
+                <h2
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    color: "#333333",
+                  }}
+                >
                   Hasselblad Precision Zoom
                   <span
-                    className="text-red-500 hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
+                    className="hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
+                    style={{ color: "#333333" }}
                     onMouseEnter={() => setShowDialog(true)}
                     onMouseLeave={() => setShowDialog(false)}
                   >
                     [?]
                   </span>
-                </span>
+                </h2>
 
                 {/* Floating Dialog */}
                 {showDialog && (
