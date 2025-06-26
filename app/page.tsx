@@ -46,6 +46,9 @@ export default function GradeAVinylSite() {
   const [showDialog, setShowDialog] = useState(false)
   const [showPressingDetails, setShowPressingDetails] = useState(false)
   const [showStory, setShowStory] = useState(false)
+  const [cartCount, setCartCount] = useState(0)
+  const [quantity, setQuantity] = useState(1)
+  const [isAdding, setIsAdding] = useState(false)
 
   const thumbnailRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
 
@@ -85,6 +88,20 @@ export default function GradeAVinylSite() {
     setSelectedView("front")
   }, [])
 
+  const handleAddToCart = useCallback(() => {
+    setIsAdding(true)
+    setCartCount((prev) => prev + quantity)
+
+    // Reset button after 1.5 seconds
+    setTimeout(() => {
+      setIsAdding(false)
+    }, 1500)
+  }, [quantity])
+
+  const handleQuantityChange = useCallback((delta: number) => {
+    setQuantity((prev) => Math.max(1, prev + delta))
+  }, [])
+
   return (
     <div className="min-h-screen bg-white font-['Montserrat']">
       {/* Custom cursor - only show when hovering thumbnails and not showing dialog */}
@@ -103,10 +120,87 @@ export default function GradeAVinylSite() {
       <div className="max-w-7xl mx-auto px-8">
         {/* Header */}
         <header className="w-full pt-4 pb-2">
-          <div className="flex justify-center">
+          <div className="flex justify-center relative">
             <div className="w-full max-w-2xl text-center">
               {/* Logo */}
               <h1 className="text-4xl font-black text-red-500 tracking-wider mb-4">GRADE A VINYL</h1>
+            </div>
+
+            {/* Cart Summary - positioned in upper right */}
+            <div className="absolute right-0 top-0 flex items-center gap-8">
+              {/* Cart Summary */}
+              <button className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors group">
+                <div className="relative">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="group-hover:scale-105 transition-transform"
+                  >
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <path d="m16 10a4 4 0 0 1-8 0" />
+                  </svg>
+                  {cartCount > 0 && (
+                    <div
+                      className="absolute -top-2 -right-2 bg-red-800 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold animate-pulse"
+                      style={{ fontSize: "10px" }}
+                    >
+                      {cartCount > 99 ? "99+" : cartCount}
+                    </div>
+                  )}
+                </div>
+                <span className="text-sm font-medium">Cart</span>
+              </button>
+
+              {/* Hasselblad Precision Zoom */}
+              <div className="text-center relative">
+                <span className="text-sm font-medium text-gray-500">
+                  Hasselblad Precision Zoom
+                  <span
+                    className="text-red-500 hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
+                    onMouseEnter={() => setShowDialog(true)}
+                    onMouseLeave={() => setShowDialog(false)}
+                  >
+                    [?]
+                  </span>
+                </span>
+
+                {/* Floating Dialog */}
+                {showDialog && (
+                  <div className="absolute top-8 right-0 w-[400px] h-[520px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6">
+                    <div className="h-full flex flex-col">
+                      <div className="flex justify-center mb-6">
+                        <Image
+                          src="/images/hasselblad-x1d-50c.png"
+                          alt="Hasselblad X1D-50c Camera"
+                          width={224}
+                          height={160}
+                          className="object-contain"
+                        />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-5 text-center">True-to-Life Imagery</h3>
+                      <div className="flex-1">
+                        <p className="text-sm text-gray-600 leading-relaxed">
+                          Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
+                          mirrorless camera celebrated for its extraordinary resolution and color accuracy.
+                          <br />
+                          <br />
+                          We invest in this precision to capture every subtle detail - from the intricate textures of
+                          the jacket to the actual vinyl itself and the nuanced clarity of its labels. This ensures that
+                          what you see online is an exact representation of your chosen record.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="absolute -top-2 right-4 w-4 h-4 bg-white border-l border-t border-gray-200 rotate-45"></div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </header>
@@ -574,7 +668,7 @@ export default function GradeAVinylSite() {
                 </div>
               </div>
 
-              {/* Album Title */}
+              {/* Album Title and Shopping Cart Section */}
               <div className="mt-6 w-full text-center">
                 <h2 className="text-2xl font-bold text-gray-900">Sgt. Pepper's Lonely Heart Club Band</h2>
                 <div className="mt-2" style={{ marginTop: "6px" }}>
@@ -586,55 +680,97 @@ export default function GradeAVinylSite() {
                     VIEW DETAILS
                   </button>
                 </div>
+
+                {/* Shopping Cart Section */}
+                <div className="mt-6 space-y-4">
+                  {/* Price */}
+                  <div className="text-center">
+                    <span className="text-3xl font-bold text-gray-900">$89.99</span>
+                  </div>
+
+                  {/* Quantity Selector */}
+                  <div className="flex items-center justify-center gap-3">
+                    <span
+                      className="text-sm text-gray-600 font-medium"
+                      style={{ fontFamily: "Montserrat, sans-serif" }}
+                    >
+                      Quantity:
+                    </span>
+                    <div className="flex items-center border border-gray-300 rounded">
+                      <button
+                        onClick={() => handleQuantityChange(-1)}
+                        className="px-3 py-1 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                        disabled={quantity <= 1}
+                      >
+                        −
+                      </button>
+                      <span className="px-4 py-1 text-sm font-medium border-l border-r border-gray-300">
+                        {quantity}
+                      </span>
+                      <button
+                        onClick={() => handleQuantityChange(1)}
+                        className="px-3 py-1 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Add to Cart Button */}
+                  <div className="flex justify-center">
+                    <button
+                      onClick={handleAddToCart}
+                      disabled={isAdding}
+                      className={`flex items-center gap-3 px-8 py-3 rounded font-bold text-sm tracking-wide transition-all duration-300 ${
+                        isAdding
+                          ? "bg-green-600 text-white"
+                          : "bg-green-700 hover:bg-green-600 text-white hover:shadow-lg"
+                      }`}
+                      style={{ fontFamily: "Montserrat, sans-serif" }}
+                    >
+                      {isAdding ? (
+                        <>
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <polyline points="20,6 9,17 4,12" />
+                          </svg>
+                          ADDED!
+                        </>
+                      ) : (
+                        <>
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="m16 10a4 4 0 0 1-8 0" />
+                          </svg>
+                          ADD TO CART
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Right Sidebar - Thumbnails aligned with TOP of album */}
             <div className="flex-shrink-0 relative" style={{ width: "400px" }}>
-              {/* Zoom Label - positioned ABOVE the thumbnails */}
-              <div className="text-center relative mb-2" style={{ marginTop: "-26px" }}>
-                <span className="text-sm font-medium text-gray-500">
-                  Hasselblad Precision Zoom
-                  <span
-                    className="text-red-500 hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
-                    onMouseEnter={() => setShowDialog(true)}
-                    onMouseLeave={() => setShowDialog(false)}
-                  >
-                    [?]
-                  </span>
-                </span>
-
-                {/* Floating Dialog */}
-                {showDialog && (
-                  <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-[400px] h-[520px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6">
-                    <div className="h-full flex flex-col">
-                      <div className="flex justify-center mb-6">
-                        <Image
-                          src="/images/hasselblad-x1d-50c.png"
-                          alt="Hasselblad X1D-50c Camera"
-                          width={224}
-                          height={160}
-                          className="object-contain"
-                        />
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-5 text-center">True-to-Life Imagery</h3>
-                      <div className="flex-1">
-                        <p className="text-sm text-gray-600 leading-relaxed">
-                          Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
-                          mirrorless camera celebrated for its extraordinary resolution and color accuracy.
-                          <br />
-                          <br />
-                          We invest in this precision to capture every subtle detail - from the intricate textures of
-                          the jacket to the actual vinyl itself and the nuanced clarity of its labels. This ensures that
-                          what you see online is an exact representation of your chosen record.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-gray-200 rotate-45"></div>
-                  </div>
-                )}
-              </div>
-
               {/* Thumbnails Grid - aligned with top of large album */}
               <div className="grid grid-cols-2 gap-6">
                 {albumViews.map((view) => (
