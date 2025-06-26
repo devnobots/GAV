@@ -746,7 +746,7 @@ export default function GradeAVinylSite() {
                       fontSize: "20px",
                       verticalAlign: "text-bottom",
                       position: "relative",
-                      top: "2px",
+                      top: "0px",
                     }}
                     onMouseEnter={() => setShowDialog(true)}
                     onMouseLeave={() => setShowDialog(false)}
