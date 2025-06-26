@@ -633,7 +633,7 @@ export default function GradeAVinylSite() {
                 </div>
 
                 {/* Shopping Cart Section */}
-                <div className="mt-6 space-y-4">
+                <div className="mt-4 space-y-4">
                   {/* Price */}
                   <div className="text-center">
                     <span className="text-3xl font-bold text-gray-900">$89.99</span>
