@@ -743,10 +743,10 @@ export default function GradeAVinylSite() {
                     className="hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
                     style={{
                       color: "#333333",
-                      fontSize: "20px",
+                      fontSize: "19px",
                       verticalAlign: "text-bottom",
                       position: "relative",
-                      top: "0px",
+                      top: "-1px",
                     }}
                     onMouseEnter={() => setShowDialog(true)}
                     onMouseLeave={() => setShowDialog(false)}
