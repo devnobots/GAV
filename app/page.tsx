@@ -733,7 +733,7 @@ export default function GradeAVinylSite() {
                 <h2
                   style={{
                     fontFamily: "Montserrat, sans-serif",
-                    fontSize: "20px",
+                    fontSize: "24px",
                     fontWeight: "700",
                     color: "#333333",
                   }}
