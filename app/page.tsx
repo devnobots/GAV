@@ -622,7 +622,11 @@ export default function GradeAVinylSite() {
               {/* Album Title and Shopping Cart Section */}
               <div className="mt-3 w-full text-center">
                 <h2 className="text-2xl font-bold text-gray-900">Sgt. Pepper's Lonely Heart Club Band</h2>
-                <div className="mt-2" style={{ marginTop: "6px" }}>
+                {/* Price - moved up to be directly after title */}
+                <div className="mt-3 text-center">
+                  <span className="text-3xl font-bold text-gray-900">$89.99</span>
+                </div>
+                <div className="mt-3">
                   <button
                     onClick={() => setShowPressingDetails(true)}
                     className="text-gray-700 hover:text-red-600 transition-colors text-xs tracking-wide"
@@ -631,63 +635,54 @@ export default function GradeAVinylSite() {
                     VIEW DETAILS
                   </button>
                 </div>
-
-                {/* Shopping Cart Section */}
-                <div className="mt-4 space-y-4">
-                  {/* Price */}
-                  <div className="text-center">
-                    <span className="text-3xl font-bold text-gray-900">$89.99</span>
-                  </div>
-
-                  {/* Add to Cart Button */}
-                  <div className="flex justify-center">
-                    <button
-                      onClick={handleAddToCart}
-                      disabled={isAdding}
-                      className={`flex items-center gap-3 px-8 py-3 rounded font-bold text-sm tracking-wide transition-all duration-300 ${
-                        isAdding
-                          ? "bg-green-600 text-white"
-                          : "bg-green-700 hover:bg-green-600 text-white hover:shadow-lg"
-                      }`}
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      {isAdding ? (
-                        <>
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <polyline points="20,6 9,17 4,12" />
-                          </svg>
-                          ADDED!
-                        </>
-                      ) : (
-                        <>
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-                            <line x1="3" y1="6" x2="21" y2="6" />
-                            <path d="m16 10a4 4 0 0 1-8 0" />
-                          </svg>
-                          ADD TO CART
-                        </>
-                      )}
-                    </button>
-                  </div>
+                {/* Add to Cart Button - moved to be directly after VIEW DETAILS */}
+                <div className="mt-4 flex justify-center">
+                  <button
+                    onClick={handleAddToCart}
+                    disabled={isAdding}
+                    className={`flex items-center gap-3 px-8 py-3 rounded font-bold text-sm tracking-wide transition-all duration-300 ${
+                      isAdding
+                        ? "bg-green-600 text-white"
+                        : "bg-green-700 hover:bg-green-600 text-white hover:shadow-lg"
+                    }`}
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    {isAdding ? (
+                      <>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="20,6 9,17 4,12" />
+                        </svg>
+                        ADDED!
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                          <line x1="3" y1="6" x2="21" y2="6" />
+                          <path d="m16 10a4 4 0 0 1-8 0" />
+                        </svg>
+                        ADD TO CART
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
