@@ -640,16 +640,35 @@ export default function GradeAVinylSite() {
                   </button>
                 </div>
                 {/* Add to Cart Button - moved to be directly after VIEW DETAILS */}
+                {/* Add to Cart Button - Premium Grade A Vinyl Styling */}
                 <div className="mt-2 flex justify-center">
                   <button
                     onClick={handleAddToCart}
                     disabled={isAdding}
-                    className={`flex items-center gap-3 px-8 py-3 rounded font-bold text-sm tracking-wide transition-all duration-300 ${
-                      isAdding
-                        ? "bg-green-600 text-white"
-                        : "bg-green-700 hover:bg-green-600 text-white hover:shadow-lg"
-                    }`}
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                    className="premium-add-to-cart-btn flex items-center font-bold text-sm tracking-wide"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      backgroundColor: isAdding ? "#1E5C41" : "#1E5C41",
+                      color: "#FFFFFF",
+                      borderRadius: "3px",
+                      paddingTop: "14px",
+                      paddingBottom: "14px",
+                      paddingLeft: "28px",
+                      paddingRight: "28px",
+                      border: "none",
+                      cursor: isAdding ? "default" : "pointer",
+                      transition: "background-color 0.2s ease-in-out",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isAdding) {
+                        e.currentTarget.style.backgroundColor = "#154430"
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isAdding) {
+                        e.currentTarget.style.backgroundColor = "#1E5C41"
+                      }
+                    }}
                   >
                     {isAdding ? (
                       <>
@@ -662,6 +681,7 @@ export default function GradeAVinylSite() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
+                          style={{ marginRight: "8px" }}
                         >
                           <polyline points="20,6 9,17 4,12" />
                         </svg>
@@ -678,6 +698,7 @@ export default function GradeAVinylSite() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
+                          style={{ marginRight: "8px" }}
                         >
                           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
                           <line x1="3" y1="6" x2="21" y2="6" />
