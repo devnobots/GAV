@@ -48,6 +48,7 @@ export default function GradeAVinylSite() {
   const [showStory, setShowStory] = useState(false)
   const [cartCount, setCartCount] = useState(0)
   const [isAdding, setIsAdding] = useState(false)
+  const [zoomLevel, setZoomLevel] = useState(2)
 
   const thumbnailRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
 
@@ -65,7 +66,7 @@ export default function GradeAVinylSite() {
     const relativeX = (x / rect.width) * 100
     const relativeY = (y / rect.height) * 100
 
-    // For background-position with 200% size:
+    // For background-position with zoom level:
     const bgX = Math.max(0, Math.min(100, relativeX))
     const bgY = Math.max(0, Math.min(100, relativeY))
 
@@ -197,7 +198,7 @@ export default function GradeAVinylSite() {
                         className="w-full h-full"
                         style={{
                           backgroundImage: `url(${currentImage})`,
-                          backgroundSize: "200%",
+                          backgroundSize: `${zoomLevel * 100}%`,
                           backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
                           backgroundRepeat: "no-repeat",
                         }}
@@ -760,6 +761,45 @@ export default function GradeAVinylSite() {
                   </div>
                 )}
               </div>
+
+              {/* Zoom Level Control */}
+              <div className="text-center mb-4">
+                <div className="flex items-center justify-center gap-3">
+                  <label
+                    htmlFor="zoom-level"
+                    className="text-sm font-medium text-gray-600"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
+                  >
+                    Zoom Level:
+                  </label>
+                  <select
+                    id="zoom-level"
+                    value={zoomLevel}
+                    onChange={(e) => setZoomLevel(Number(e.target.value))}
+                    className="text-sm border border-gray-300 rounded px-3 py-1 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "12px",
+                      minWidth: "60px",
+                      focusRingColor: "#1E5C41",
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = "#1E5C41"
+                      e.target.style.boxShadow = "0 0 0 2px rgba(30, 92, 65, 0.2)"
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = "#d1d5db"
+                      e.target.style.boxShadow = "none"
+                    }}
+                  >
+                    <option value={2}>2x</option>
+                    <option value={3}>3x</option>
+                    <option value={4}>4x</option>
+                    <option value={5}>5x</option>
+                  </select>
+                </div>
+              </div>
+
               {/* Thumbnails Grid - aligned with top of large album */}
               <div className="grid grid-cols-2 gap-6">
                 {albumViews.map((view) => (
