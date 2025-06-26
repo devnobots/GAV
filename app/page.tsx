@@ -122,7 +122,7 @@ export default function GradeAVinylSite() {
             </div>
 
             {/* Cart Summary - positioned in upper right */}
-            <div className="absolute right-0 top-0">
+            <div className="absolute right-0 top-1">
               {/* Cart Summary */}
               <button className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors group">
                 <div className="relative">
@@ -143,8 +143,8 @@ export default function GradeAVinylSite() {
                   </svg>
                   {cartCount > 0 && (
                     <div
-                      className="absolute -top-2 -right-2 bg-red-800 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold animate-pulse"
-                      style={{ fontSize: "10px" }}
+                      className="absolute -top-2 -right-2 bg-red-800 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold animate-pulse"
+                      style={{ fontSize: "9px" }}
                     >
                       {cartCount > 99 ? "99+" : cartCount}
                     </div>
