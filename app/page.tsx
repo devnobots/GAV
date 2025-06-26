@@ -620,7 +620,7 @@ export default function GradeAVinylSite() {
               </div>
 
               {/* Album Title and Shopping Cart Section */}
-              <div className="mt-5 w-full text-center">
+              <div className="mt-3 w-full text-center">
                 <h2 className="text-2xl font-bold text-gray-900">Sgt. Pepper's Lonely Heart Club Band</h2>
                 <div className="mt-2" style={{ marginTop: "6px" }}>
                   <button
