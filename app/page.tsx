@@ -738,10 +738,13 @@ export default function GradeAVinylSite() {
                     color: "#333333",
                   }}
                 >
-                  Hasselblad Precision
+                  Hasselblad Precision Zoom
                   <span
                     className="hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
-                    style={{ color: "#333333" }}
+                    style={{
+                      color: "#333333",
+                      fontSize: "22px",
+                    }}
                     onMouseEnter={() => setShowDialog(true)}
                     onMouseLeave={() => setShowDialog(false)}
                   >
