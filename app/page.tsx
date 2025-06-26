@@ -629,8 +629,12 @@ export default function GradeAVinylSite() {
                 <div className="mt-1">
                   <button
                     onClick={() => setShowPressingDetails(true)}
-                    className="text-gray-700 hover:text-red-600 transition-colors text-xs tracking-wide"
-                    style={{ fontFamily: "Montserrat, sans-serif", fontSize: "12px" }}
+                    className="text-xs tracking-wide transition-colors hover:underline hover:decoration-black"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "12px",
+                      color: "#ef4444",
+                    }}
                   >
                     VIEW DETAILS
                   </button>
