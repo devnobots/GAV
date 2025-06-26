@@ -143,8 +143,11 @@ export default function GradeAVinylSite() {
                   </svg>
                   {cartCount > 0 && (
                     <div
-                      className="absolute -top-2 -right-2 bg-red-800 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold animate-pulse"
-                      style={{ fontSize: "9px" }}
+                      className="absolute -top-2 -right-2 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold animate-pulse"
+                      style={{
+                        fontSize: "9px",
+                        backgroundColor: "#1E5C41",
+                      }}
                     >
                       {cartCount > 99 ? "99+" : cartCount}
                     </div>
