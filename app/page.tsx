@@ -738,7 +738,7 @@ export default function GradeAVinylSite() {
                     color: "#333333",
                   }}
                 >
-                  Hasselblad Precision Zoom
+                  Hasselblad Precision
                   <span
                     className="hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
                     style={{ color: "#333333" }}
