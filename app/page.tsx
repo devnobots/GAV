@@ -87,8 +87,8 @@ export default function GradeAVinylSite() {
 
   return (
     <div className="min-h-screen bg-white font-['Montserrat']">
-      {/* Custom cursor */}
-      {isHovering && (
+      {/* Custom cursor - only show when hovering thumbnails and not showing dialog */}
+      {isHovering && !showDialog && (
         <div
           className="fixed w-[30px] h-[30px] bg-yellow-400 pointer-events-none z-50 border border-yellow-600"
           style={{
@@ -392,10 +392,10 @@ export default function GradeAVinylSite() {
                             <div>
                               <button
                                 onClick={() => setShowStory(true)}
-                                className="flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-colors group"
-                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                                className="flex items-center gap-2 transition-colors group"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600", color: "#ef4444" }}
                               >
-                                <span className="text-xs group-hover:underline decoration-red-500">
+                                <span className="text-xs group-hover:underline decoration-black">
                                   Why This Record is Special
                                 </span>
                                 <svg
@@ -423,17 +423,17 @@ export default function GradeAVinylSite() {
                           showStory ? "transform translate-x-0" : "transform translate-x-full"
                         }`}
                       >
-                        <div className="h-full px-6 pt-6" style={{ fontFamily: "Lora, serif" }}>
-                          {/* Navigation row with both elements on the same horizontal line */}
-                          <div className="w-full mb-8 relative">
-                            {/* Back to Details button - positioned on the left */}
+                        {/* Fixed Back to Details button - guaranteed to be visible */}
+                        {showStory && (
+                          <div className="relative pt-6">
                             <button
                               onClick={() => setShowStory(false)}
-                              className="absolute left-0 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                              className="absolute left-4 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors bg-white px-3 py-2 rounded shadow-lg border"
                               style={{
                                 fontFamily: "Montserrat, sans-serif",
                                 fontWeight: "500",
-                                top: "10px",
+                                zIndex: 10000,
+                                top: "0px",
                               }}
                             >
                               <svg
@@ -451,19 +451,20 @@ export default function GradeAVinylSite() {
                               </svg>
                               <span className="text-xs">Back to Details</span>
                             </button>
-
-                            {/* Story Title - positioned center-right, same baseline */}
-                            <h2
-                              className="absolute left-1/2 transform -translate-x-1/2 text-gray-900 text-base font-semibold tracking-wide"
-                              style={{
-                                fontFamily: "Montserrat, sans-serif",
-                                fontWeight: "600",
-                                top: "-18px",
-                              }}
-                            >
-                              WHY THIS RECORD IS SPECIAL
-                            </h2>
                           </div>
+                        )}
+
+                        <div className="h-full px-6 pt-6" style={{ fontFamily: "Lora, serif" }}>
+                          {/* Story Title */}
+                          <h2
+                            className="text-center text-gray-900 text-base font-semibold tracking-wide mb-8"
+                            style={{
+                              fontFamily: "Montserrat, sans-serif",
+                              fontWeight: "600",
+                            }}
+                          >
+                            WHY THIS RECORD IS SPECIAL
+                          </h2>
 
                           {/* Story Content */}
                           <div className="space-y-6 text-xs leading-relaxed pb-20" style={{ lineHeight: "1.7" }}>
@@ -476,7 +477,7 @@ export default function GradeAVinylSite() {
                                   fontSize: "14px",
                                 }}
                               >
-                                1. The Significance of This Pressing
+                                The Significance of This Pressing
                               </h4>
                               <p className="text-gray-700">
                                 This specific edition of Sgt. Pepper's Lonely Hearts Club Band represents the critically
@@ -498,7 +499,7 @@ export default function GradeAVinylSite() {
                                   fontSize: "14px",
                                 }}
                               >
-                                2. Mastering & Sonic Fidelity
+                                Mastering & Sonic Fidelity
                               </h4>
                               <p className="text-gray-700">
                                 The "XZAL-40001-A-RE1 RJ STERLING" matrix inscription for Side A confirms a master cut
@@ -519,7 +520,7 @@ export default function GradeAVinylSite() {
                                   fontSize: "14px",
                                 }}
                               >
-                                3. Rarity & Condition Insights
+                                Rarity & Condition Insights
                               </h4>
                               <p className="text-gray-700">
                                 While the 2017 remix saw significant distribution, specific pressings with optimal
@@ -540,7 +541,7 @@ export default function GradeAVinylSite() {
                                   fontSize: "14px",
                                 }}
                               >
-                                4. A Collector's Perspective
+                                A Collector's Perspective
                               </h4>
                               <p className="text-gray-700">
                                 Sgt. Pepper's remains a cornerstone of popular music, and owning a copy that unlocks its
@@ -595,7 +596,7 @@ export default function GradeAVinylSite() {
                 <span className="text-sm font-medium text-gray-500">
                   Hasselblad Precision Zoom
                   <span
-                    className="text-red-500 hover:text-red-700 cursor-help relative inline-block ml-0.5"
+                    className="text-red-500 hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
                     onMouseEnter={() => setShowDialog(true)}
                     onMouseLeave={() => setShowDialog(false)}
                   >
