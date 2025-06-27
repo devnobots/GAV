@@ -738,7 +738,7 @@ export default function GradeAVinylSite() {
                     color: "#333333",
                   }}
                 >
-                  Photography Standards
+                  Image Quality Info
                   <span
                     className="hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
                     style={{
@@ -751,7 +751,7 @@ export default function GradeAVinylSite() {
                     onMouseEnter={() => setShowDialog(true)}
                     onMouseLeave={() => setShowDialog(false)}
                   >
-                    [?]
+                    ⓘ
                   </span>
                 </h2>
 
