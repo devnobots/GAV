@@ -143,6 +143,19 @@ export default function ExplorePage() {
             {/* Logo */}
             <div className="text-center mb-4">
               <h1 className="text-4xl font-black text-red-500 tracking-wider">GRADE A VINYL</h1>
+              <p
+                className="text-center tracking-wider"
+                style={{
+                  marginTop: "18px",
+                  fontSize: "18px",
+                  fontWeight: "600",
+                  letterSpacing: "0.05em",
+                  color: "#333333",
+                  fontFamily: "Montserrat, sans-serif",
+                }}
+              >
+                EVERY DETAIL MATTERS
+              </p>
             </div>
           </div>
         </header>
@@ -498,7 +511,10 @@ export default function ExplorePage() {
                   </div>
 
                   <div className="flex justify-end space-x-3 pt-2">
-                    <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-100">
+                    <Button
+                      variant="outline"
+                      className="border-gray-300 text-gray-700 hover:bg-gray-100 bg-transparent"
+                    >
                       Clear All
                     </Button>
                     <Button className="bg-red-500 hover:bg-red-600 text-white">Apply Filters</Button>
@@ -934,7 +950,10 @@ export default function ExplorePage() {
                   </div>
 
                   <div className="flex justify-end space-x-3 pt-2">
-                    <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-100">
+                    <Button
+                      variant="outline"
+                      className="border-gray-300 text-gray-700 hover:bg-gray-100 bg-transparent"
+                    >
                       Clear All
                     </Button>
                     <Button className="bg-red-500 hover:bg-red-600 text-white">Apply Filters</Button>
