@@ -190,8 +190,9 @@ export default function GradeAVinylSite() {
                 >
                   {/* Front Side - Album Image */}
                   <div
-                    className="absolute inset-0 w-full h-full backface-hidden overflow-hidden bg-gray-100 shadow-lg"
+                    className="absolute inset-0 w-full h-full backface-hidden overflow-hidden bg-gray-100 shadow-lg cursor-pointer"
                     style={{ backfaceVisibility: "hidden" }}
+                    onClick={() => setShowPressingDetails(true)}
                   >
                     {isHovering ? (
                       <div
@@ -630,19 +631,7 @@ export default function GradeAVinylSite() {
                 <div className="mt-1 text-center">
                   <span className="text-2xl font-bold text-gray-900">$89.99</span>
                 </div>
-                <div className="mt-1">
-                  <button
-                    onClick={() => setShowPressingDetails(true)}
-                    className="text-xs tracking-wide transition-colors hover:underline hover:decoration-black"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "12px",
-                      color: "#ef4444",
-                    }}
-                  >
-                    VIEW DETAILS
-                  </button>
-                </div>
+
                 {/* Add to Cart Button - moved to be directly after VIEW DETAILS */}
                 {/* Add to Cart Button - Premium Grade A Vinyl Styling */}
                 <div className="mt-2 flex justify-center">
@@ -757,7 +746,7 @@ export default function GradeAVinylSite() {
 
                 {/* Floating Dialog */}
                 {showDialog && (
-                  <div className="absolute top-[38px] left-1/2 transform -translate-x-1/2 w-[400px] h-[520px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6">
+                  <div className="absolute top-[37px] left-1/2 transform -translate-x-1/2 w-[400px] h-[520px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6">
                     <div className="h-full flex flex-col">
                       <div className="flex justify-center mb-6">
                         <Image
