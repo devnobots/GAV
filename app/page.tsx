@@ -738,7 +738,7 @@ export default function GradeAVinylSite() {
                     color: "#333333",
                   }}
                 >
-                  About Our Photos
+                  Photography Details
                   <span
                     className="hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
                     style={{
