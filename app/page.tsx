@@ -768,7 +768,7 @@ export default function GradeAVinylSite() {
                           className="object-contain"
                         />
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-5 text-center">Precision Imaging at Grade A Vinyl</h3>
+                      <h3 className="text-xl font-bold text-gray-900 mb-5 text-center">Image Accuracy Matters</h3>
                       <div className="flex-1">
                         <p className="text-sm text-gray-600 leading-relaxed">
                           Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
