@@ -17,6 +17,11 @@ const albumViews = [
     image: "/placeholder.svg?height=300&width=300",
   },
   {
+    id: "spine",
+    label: "SPINE",
+    image: "/placeholder.svg?height=300&width=300",
+  },
+  {
     id: "sleeve-front",
     label: "SLEEVE FRONT",
     image: "/placeholder.svg?height=300&width=300",
@@ -24,6 +29,11 @@ const albumViews = [
   {
     id: "sleeve-back",
     label: "SLEEVE BACK",
+    image: "/placeholder.svg?height=300&width=300",
+  },
+  {
+    id: "inner-sleeve",
+    label: "INNER SLEEVE",
     image: "/placeholder.svg?height=300&width=300",
   },
   {
@@ -35,6 +45,11 @@ const albumViews = [
     id: "side-b",
     label: "SIDE B",
     image: "/images/vinyl-record.png",
+  },
+  {
+    id: "label-detail",
+    label: "LABEL DETAIL",
+    image: "/placeholder.svg?height=300&width=300",
   },
 ]
 
@@ -710,7 +725,8 @@ export default function GradeAVinylSite() {
             <div
               className="flex-shrink-0 h-full flex flex-col"
               style={{
-                width: "400px",
+                width: "440px",
+                height: "670px",
                 backgroundColor: "#FBFBFB",
                 border: "1px solid #E0E0E0",
                 borderRadius: "3px",
@@ -816,7 +832,7 @@ export default function GradeAVinylSite() {
 
               {/* Thumbnails Grid - flex-1 to fill remaining space */}
               <div className="flex-1 flex flex-col">
-                <div className="grid grid-cols-2 gap-6 flex-1">
+                <div className="grid grid-cols-3 gap-4 flex-1">
                   {albumViews.map((view) => (
                     <div
                       key={view.id}
