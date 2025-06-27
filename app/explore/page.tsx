@@ -120,6 +120,9 @@ export default function ExplorePage() {
 
   const [showMoreFilters, setShowMoreFilters] = useState(false)
 
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [mobileDialogOpen, setMobileDialogOpen] = useState(false)
+
   return (
     <>
       {/* Google Fonts import */}
@@ -150,9 +153,12 @@ export default function ExplorePage() {
           <div className="hidden lg:flex lg:flex-wrap lg:justify-center lg:gap-8">
             {/* Filter Bar positioned above first row */}
             <div className="w-full flex justify-between items-center mb-1" style={{ maxWidth: "1924px" }}>
-              <Dialog>
+              <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                  <button className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 text-sm font-medium hover:bg-gray-50 transition-colors">
+                  <button
+                    className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 text-sm font-medium hover:bg-gray-50 transition-colors"
+                    onClick={() => setDialogOpen(true)}
+                  >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <line x1="4" y1="21" x2="4" y2="14"></line>
                       <line x1="4" y1="10" x2="4" y2="3"></line>
@@ -544,9 +550,12 @@ export default function ExplorePage() {
           <div className="grid lg:hidden grid-cols-2 gap-4">
             {/* Mobile Filter Bar */}
             <div className="col-span-2 flex justify-between items-center w-full mb-1">
-              <Dialog>
+              <Dialog open={mobileDialogOpen} onOpenChange={setMobileDialogOpen}>
                 <DialogTrigger asChild>
-                  <button className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 text-sm font-medium hover:bg-gray-50 transition-colors">
+                  <button
+                    className="flex items-center gap-2 border border-gray-300 rounded-full px-4 py-2 text-sm font-medium hover:bg-gray-50 transition-colors"
+                    onClick={() => setMobileDialogOpen(true)}
+                  >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <line x1="4" y1="21" x2="4" y2="14"></line>
                       <line x1="4" y1="10" x2="4" y2="3"></line>

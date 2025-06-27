@@ -46,6 +46,9 @@ export default function GradeAVinylSite() {
   const [showDialog, setShowDialog] = useState(false)
   const [showPressingDetails, setShowPressingDetails] = useState(false)
   const [showStory, setShowStory] = useState(false)
+  const [cartCount, setCartCount] = useState(0)
+  const [isAdding, setIsAdding] = useState(false)
+  const [zoomLevel, setZoomLevel] = useState(2)
 
   const thumbnailRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
 
@@ -63,7 +66,7 @@ export default function GradeAVinylSite() {
     const relativeX = (x / rect.width) * 100
     const relativeY = (y / rect.height) * 100
 
-    // For background-position with 200% size:
+    // For background-position with zoom level:
     const bgX = Math.max(0, Math.min(100, relativeX))
     const bgY = Math.max(0, Math.min(100, relativeY))
 
@@ -85,10 +88,20 @@ export default function GradeAVinylSite() {
     setSelectedView("front")
   }, [])
 
+  const handleAddToCart = useCallback(() => {
+    setIsAdding(true)
+    setCartCount((prev) => prev + 1)
+
+    // Reset button after 1.5 seconds
+    setTimeout(() => {
+      setIsAdding(false)
+    }, 1500)
+  }, [])
+
   return (
-    <div className="min-h-screen bg-white font-['Montserrat']">
-      {/* Custom cursor */}
-      {isHovering && (
+    <div className="min-h-screen bg-white font-['Montserrat']" style={{ paddingTop: "3px" }}>
+      {/* Custom cursor - only show when hovering thumbnails and not showing dialog */}
+      {isHovering && !showDialog && (
         <div
           className="fixed w-[30px] h-[30px] bg-yellow-400 pointer-events-none z-50 border border-yellow-600"
           style={{
@@ -102,17 +115,53 @@ export default function GradeAVinylSite() {
       {/* Main Content Container - Everything aligned */}
       <div className="max-w-7xl mx-auto px-8">
         {/* Header */}
-        <header className="w-full pt-4 pb-2">
-          <div className="flex justify-center">
+        <header className="w-full pt-2 pb-1">
+          <div className="flex justify-center relative">
             <div className="w-full max-w-2xl text-center">
               {/* Logo */}
-              <h1 className="text-4xl font-black text-red-500 tracking-wider mb-4">GRADE A VINYL</h1>
+              <h1 className="text-4xl font-black text-red-500 tracking-wider mb-2">GRADE A VINYL</h1>
+            </div>
+
+            {/* Cart Summary - positioned in upper right */}
+            <div className="absolute right-0 top-1">
+              {/* Cart Summary */}
+              <button className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors group">
+                <div className="relative">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="group-hover:scale-105 transition-transform"
+                  >
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <path d="m16 10a4 4 0 0 1-8 0" />
+                  </svg>
+                  {cartCount > 0 && (
+                    <div
+                      className="absolute -top-2 -right-2 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold animate-pulse"
+                      style={{
+                        fontSize: "9px",
+                        backgroundColor: "#1E5C41",
+                      }}
+                    >
+                      {cartCount > 99 ? "99+" : cartCount}
+                    </div>
+                  )}
+                </div>
+                <span className="text-sm font-medium">Cart</span>
+              </button>
             </div>
           </div>
         </header>
 
         {/* Breadcrumb Navigation */}
-        <nav className="mb-4">
+        <nav className="mb-1">
           <div className="flex justify-start">
             <div className="w-full max-w-2xl">
               <div className="flex items-center space-x-2 text-sm text-gray-600">
@@ -126,8 +175,8 @@ export default function GradeAVinylSite() {
 
         {/* Main Content */}
         <main className="pt-0">
-          <div className="flex gap-12">
-            {/* Large Album Display - 3D Flip Container */}
+          <div className="flex gap-12 items-start">
+            {/* Left Column - Large Album Display */}
             <div className="flex-1 max-w-2xl">
               <div className="aspect-square w-full relative" style={{ perspective: "1000px" }}>
                 <div
@@ -149,7 +198,7 @@ export default function GradeAVinylSite() {
                         className="w-full h-full"
                         style={{
                           backgroundImage: `url(${currentImage})`,
-                          backgroundSize: "200%",
+                          backgroundSize: `${zoomLevel * 100}%`,
                           backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
                           backgroundRepeat: "no-repeat",
                         }}
@@ -392,10 +441,10 @@ export default function GradeAVinylSite() {
                             <div>
                               <button
                                 onClick={() => setShowStory(true)}
-                                className="flex items-center gap-2 text-gray-800 hover:text-gray-900 transition-colors group"
-                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600" }}
+                                className="flex items-center gap-2 transition-colors group"
+                                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: "600", color: "#ef4444" }}
                               >
-                                <span className="text-xs group-hover:underline decoration-red-500">
+                                <span className="text-xs group-hover:underline decoration-black">
                                   Why This Record is Special
                                 </span>
                                 <svg
@@ -423,17 +472,17 @@ export default function GradeAVinylSite() {
                           showStory ? "transform translate-x-0" : "transform translate-x-full"
                         }`}
                       >
-                        <div className="h-full px-6 pt-6" style={{ fontFamily: "Lora, serif" }}>
-                          {/* Navigation row with both elements on the same horizontal line */}
-                          <div className="w-full mb-8 relative">
-                            {/* Back to Details button - positioned on the left */}
+                        {/* Fixed Back to Details button - guaranteed to be visible */}
+                        {showStory && (
+                          <div className="relative pt-6">
                             <button
                               onClick={() => setShowStory(false)}
-                              className="absolute left-0 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                              className="absolute left-4 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors bg-white px-3 py-2 rounded shadow-lg border"
                               style={{
                                 fontFamily: "Montserrat, sans-serif",
                                 fontWeight: "500",
-                                top: "10px",
+                                zIndex: 10000,
+                                top: "0px",
                               }}
                             >
                               <svg
@@ -451,19 +500,20 @@ export default function GradeAVinylSite() {
                               </svg>
                               <span className="text-xs">Back to Details</span>
                             </button>
-
-                            {/* Story Title - positioned center-right, same baseline */}
-                            <h2
-                              className="absolute left-1/2 transform -translate-x-1/2 text-gray-900 text-base font-semibold tracking-wide"
-                              style={{
-                                fontFamily: "Montserrat, sans-serif",
-                                fontWeight: "600",
-                                top: "-18px",
-                              }}
-                            >
-                              WHY THIS RECORD IS SPECIAL
-                            </h2>
                           </div>
+                        )}
+
+                        <div className="h-full px-6 pt-6" style={{ fontFamily: "Lora, serif" }}>
+                          {/* Story Title */}
+                          <h2
+                            className="text-center text-gray-900 text-base font-semibold tracking-wide mb-8"
+                            style={{
+                              fontFamily: "Montserrat, sans-serif",
+                              fontWeight: "600",
+                            }}
+                          >
+                            WHY THIS RECORD IS SPECIAL
+                          </h2>
 
                           {/* Story Content */}
                           <div className="space-y-6 text-xs leading-relaxed pb-20" style={{ lineHeight: "1.7" }}>
@@ -476,7 +526,7 @@ export default function GradeAVinylSite() {
                                   fontSize: "14px",
                                 }}
                               >
-                                1. The Significance of This Pressing
+                                The Significance of This Pressing
                               </h4>
                               <p className="text-gray-700">
                                 This specific edition of Sgt. Pepper's Lonely Hearts Club Band represents the critically
@@ -498,7 +548,7 @@ export default function GradeAVinylSite() {
                                   fontSize: "14px",
                                 }}
                               >
-                                2. Mastering & Sonic Fidelity
+                                Mastering & Sonic Fidelity
                               </h4>
                               <p className="text-gray-700">
                                 The "XZAL-40001-A-RE1 RJ STERLING" matrix inscription for Side A confirms a master cut
@@ -519,7 +569,7 @@ export default function GradeAVinylSite() {
                                   fontSize: "14px",
                                 }}
                               >
-                                3. Rarity & Condition Insights
+                                Rarity & Condition Insights
                               </h4>
                               <p className="text-gray-700">
                                 While the 2017 remix saw significant distribution, specific pressings with optimal
@@ -540,7 +590,7 @@ export default function GradeAVinylSite() {
                                   fontSize: "14px",
                                 }}
                               >
-                                4. A Collector's Perspective
+                                A Collector's Perspective
                               </h4>
                               <p className="text-gray-700">
                                 Sgt. Pepper's remains a cornerstone of popular music, and owning a copy that unlocks its
@@ -573,39 +623,141 @@ export default function GradeAVinylSite() {
                 </div>
               </div>
 
-              {/* Album Title */}
-              <div className="mt-6 w-full text-center">
-                <h2 className="text-2xl font-bold text-gray-900">Sgt. Pepper's Lonely Heart Club Band</h2>
-                <div className="mt-2" style={{ marginTop: "6px" }}>
+              {/* Album Title and Shopping Cart Section */}
+              <div className="mt-1 w-full text-center">
+                <h2 className="text-xl font-bold text-gray-900">Sgt. Pepper's Lonely Heart Club Band</h2>
+                {/* Price - moved up to be directly after title */}
+                <div className="mt-1 text-center">
+                  <span className="text-2xl font-bold text-gray-900">$89.99</span>
+                </div>
+                <div className="mt-1">
                   <button
                     onClick={() => setShowPressingDetails(true)}
-                    className="text-gray-700 hover:text-red-600 transition-colors text-xs tracking-wide"
-                    style={{ fontFamily: "Montserrat, sans-serif", fontSize: "12px" }}
+                    className="text-xs tracking-wide transition-colors hover:underline hover:decoration-black"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "12px",
+                      color: "#ef4444",
+                    }}
                   >
                     VIEW DETAILS
+                  </button>
+                </div>
+                {/* Add to Cart Button - moved to be directly after VIEW DETAILS */}
+                {/* Add to Cart Button - Premium Grade A Vinyl Styling */}
+                <div className="mt-2 flex justify-center">
+                  <button
+                    onClick={handleAddToCart}
+                    disabled={isAdding}
+                    className="premium-add-to-cart-btn flex items-center font-bold text-sm tracking-wide"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      backgroundColor: isAdding ? "#1E5C41" : "#1E5C41",
+                      color: "#FFFFFF",
+                      borderRadius: "3px",
+                      paddingTop: "14px",
+                      paddingBottom: "14px",
+                      paddingLeft: "28px",
+                      paddingRight: "28px",
+                      border: "none",
+                      cursor: isAdding ? "default" : "pointer",
+                      transition: "background-color 0.2s ease-in-out",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isAdding) {
+                        e.currentTarget.style.backgroundColor = "#154430"
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isAdding) {
+                        e.currentTarget.style.backgroundColor = "#1E5C41"
+                      }
+                    }}
+                  >
+                    {isAdding ? (
+                      <>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ marginRight: "8px" }}
+                        >
+                          <polyline points="20,6 9,17 4,12" />
+                        </svg>
+                        ADDED!
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ marginRight: "8px" }}
+                        >
+                          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                          <line x1="3" y1="6" x2="21" y2="6" />
+                          <path d="m16 10a4 4 0 0 1-8 0" />
+                        </svg>
+                        ADD TO CART
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Right Sidebar - Thumbnails aligned with TOP of album */}
-            <div className="flex-shrink-0 relative" style={{ width: "400px" }}>
-              {/* Zoom Label - positioned ABOVE the thumbnails */}
-              <div className="text-center relative mb-2" style={{ marginTop: "-26px" }}>
-                <span className="text-sm font-medium text-gray-500">
-                  Hasselblad Precision Zoom
+            {/* Right Column - Product Detail Container */}
+            <div
+              className="flex-shrink-0 h-full flex flex-col"
+              style={{
+                width: "400px",
+                backgroundColor: "#FBFBFB",
+                border: "1px solid #E0E0E0",
+                borderRadius: "3px",
+                padding: "20px",
+                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.05)",
+              }}
+            >
+              {/* Section Title - Hasselblad Precision Zoom */}
+              <div className="text-center relative" style={{ marginBottom: "16px" }}>
+                <h2
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontSize: "24px",
+                    fontWeight: "700",
+                    color: "#333333",
+                  }}
+                >
+                  Photography Details
                   <span
-                    className="text-red-500 hover:text-red-700 cursor-help relative inline-block ml-0.5"
+                    className="hover:text-red-700 cursor-pointer relative inline-block ml-0.5"
+                    style={{
+                      color: "#ef4444",
+                      fontSize: "19px",
+                      verticalAlign: "text-bottom",
+                      position: "relative",
+                      top: "-1px",
+                    }}
                     onMouseEnter={() => setShowDialog(true)}
                     onMouseLeave={() => setShowDialog(false)}
                   >
-                    [?]
+                    ⓘ
                   </span>
-                </span>
+                </h2>
 
                 {/* Floating Dialog */}
                 {showDialog && (
-                  <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-[400px] h-[520px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6">
+                  <div className="absolute top-[38px] left-1/2 transform -translate-x-1/2 w-[400px] h-[520px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6">
                     <div className="h-full flex flex-col">
                       <div className="flex justify-center mb-6">
                         <Image
@@ -616,7 +768,7 @@ export default function GradeAVinylSite() {
                           className="object-contain"
                         />
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-5 text-center">True-to-Life Imagery</h3>
+                      <h3 className="text-xl font-bold text-gray-900 mb-5 text-center">Image Accuracy Matters</h3>
                       <div className="flex-1">
                         <p className="text-sm text-gray-600 leading-relaxed">
                           Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
@@ -629,45 +781,85 @@ export default function GradeAVinylSite() {
                         </p>
                       </div>
                     </div>
-                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-gray-200 rotate-45"></div>
+                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 translate-x-[75px] w-4 h-4 bg-white border-l border-t border-gray-200 rotate-45"></div>
                   </div>
                 )}
               </div>
 
-              {/* Thumbnails Grid - aligned with top of large album */}
-              <div className="grid grid-cols-2 gap-6">
-                {albumViews.map((view) => (
-                  <div
-                    key={view.id}
-                    className="cursor-none"
-                    ref={(el) => {
-                      thumbnailRefs.current[view.id] = el
-                    }}
-                    onMouseEnter={() => handleThumbnailEnter(view.id)}
-                    onMouseMove={(e) => handleMouseMove(e, view.id)}
-                    onMouseLeave={handleThumbnailLeave}
+              {/* Zoom Level Control */}
+              <div className="text-center mb-4">
+                <div className="flex items-center justify-center gap-3">
+                  <label
+                    htmlFor="zoom-level"
+                    className="text-sm font-medium text-gray-600"
+                    style={{ fontFamily: "Montserrat, sans-serif" }}
                   >
-                    <div className="aspect-square relative group">
-                      <Image
-                        src={view.image || "/placeholder.svg"}
-                        alt={view.label}
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-cover shadow-lg transition-transform group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all" />
+                    Zoom Level:
+                  </label>
+                  <select
+                    id="zoom-level"
+                    value={zoomLevel}
+                    onChange={(e) => setZoomLevel(Number(e.target.value))}
+                    className="text-sm border border-gray-300 rounded px-3 py-1 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontSize: "12px",
+                      minWidth: "60px",
+                      focusRingColor: "#1E5C41",
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = "#1E5C41"
+                      e.target.style.boxShadow = "0 0 0 2px rgba(30, 92, 65, 0.2)"
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = "#d1d5db"
+                      e.target.style.boxShadow = "none"
+                    }}
+                  >
+                    <option value={2}>2x</option>
+                    <option value={3}>3x</option>
+                    <option value={4}>4x</option>
+                    <option value={5}>5x</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Thumbnails Grid - flex-1 to fill remaining space */}
+              <div className="flex-1 flex flex-col">
+                <div className="grid grid-cols-2 gap-6 flex-1">
+                  {albumViews.map((view) => (
+                    <div
+                      key={view.id}
+                      className="cursor-none flex flex-col"
+                      ref={(el) => {
+                        thumbnailRefs.current[view.id] = el
+                      }}
+                      onMouseEnter={() => handleThumbnailEnter(view.id)}
+                      onMouseMove={(e) => handleMouseMove(e, view.id)}
+                      onMouseLeave={handleThumbnailLeave}
+                    >
+                      <div className="aspect-square relative group">
+                        <Image
+                          src={view.image || "/placeholder.svg"}
+                          alt={view.label}
+                          width={200}
+                          height={200}
+                          className="w-full h-full object-cover shadow-lg transition-transform group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all" />
+                      </div>
+                      <div className="text-center mt-2">
+                        <span
+                          className={`text-xs font-medium ${
+                            selectedView === view.id && isHovering ? "text-red-500 font-bold" : "text-gray-500"
+                          }`}
+                        >
+                          {view.label}
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-center mt-2">
-                      <span
-                        className={`text-xs font-medium ${
-                          selectedView === view.id && isHovering ? "text-red-500 font-bold" : "text-gray-500"
-                        }`}
-                      >
-                        {view.label}
-                      </span>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
