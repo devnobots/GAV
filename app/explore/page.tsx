@@ -18,6 +18,7 @@ const collections = [
     artist: "THE BEATLES",
     image: "/images/sgt-pepper-600x600.png",
     href: "/",
+    sold: false,
   },
   {
     id: "jazz",
@@ -25,6 +26,7 @@ const collections = [
     artist: "THE BEATLES",
     image: "/images/abbey-road-580x580.png",
     href: "/",
+    sold: true,
   },
   {
     id: "jazz-blues",
@@ -32,6 +34,7 @@ const collections = [
     artist: "THE BEATLES",
     image: "/images/sgt-pepper-600x600.png",
     href: "/",
+    sold: false,
   },
   {
     id: "live-music",
@@ -39,6 +42,7 @@ const collections = [
     artist: "THE BEATLES",
     image: "/images/sgt-pepper-600x600.png",
     href: "/",
+    sold: false,
   },
   {
     id: "psychedelic",
@@ -46,6 +50,7 @@ const collections = [
     artist: "THE BEATLES",
     image: "/images/sgt-pepper-600x600.png",
     href: "/",
+    sold: false,
   },
   {
     id: "punk",
@@ -53,6 +58,7 @@ const collections = [
     artist: "THE BEATLES",
     image: "/images/sgt-pepper-600x600.png",
     href: "/",
+    sold: false,
   },
 ]
 
@@ -540,6 +546,26 @@ export default function ExplorePage() {
                       sizes="580px"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300" />
+                    {collection.sold && (
+                      <div
+                        className="absolute z-10"
+                        style={{
+                          top: "10px",
+                          right: "10px",
+                          fontFamily: "Montserrat, sans-serif",
+                          fontSize: "14px",
+                          fontWeight: "600",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.05em",
+                          color: "#EEEEEE",
+                          backgroundColor: "rgba(0, 0, 0, 0.6)",
+                          padding: "5px 8px",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        SOLD
+                      </div>
+                    )}
                   </div>
                 </Link>
                 <div className="text-center" style={{ marginTop: "10px" }}>
@@ -975,6 +1001,26 @@ export default function ExplorePage() {
                       sizes="50vw"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300" />
+                    {collection.sold && (
+                      <div
+                        className="absolute z-10"
+                        style={{
+                          top: "10px",
+                          right: "10px",
+                          fontFamily: "Montserrat, sans-serif",
+                          fontSize: "14px",
+                          fontWeight: "600",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.05em",
+                          color: "#EEEEEE",
+                          backgroundColor: "rgba(0, 0, 0, 0.6)",
+                          padding: "5px 8px",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        SOLD
+                      </div>
+                    )}
                   </div>
                 </Link>
                 <div className="text-center" style={{ marginTop: "6px" }}>
