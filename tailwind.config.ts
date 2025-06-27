@@ -11,7 +11,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ["Montserrat", "sans-serif"],
+        sans: ["var(--font-inter)", "Arial", "Helvetica", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
+        lora: ["var(--font-lora)", "serif"],
       },
       colors: {
         background: "hsl(var(--background))",
