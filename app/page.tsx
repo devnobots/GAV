@@ -124,38 +124,39 @@ export default function GradeAVinylSite() {
 
             {/* Cart Summary - positioned in upper right */}
             <div className="absolute right-0 top-1">
-              {/* Cart Summary */}
-              <button className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors group">
-                <div className="relative">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="group-hover:scale-105 transition-transform"
-                  >
-                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <path d="m16 10a4 4 0 0 1-8 0" />
-                  </svg>
-                  {cartCount > 0 && (
-                    <div
-                      className="absolute -top-2 -right-2 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold animate-pulse"
-                      style={{
-                        fontSize: "9px",
-                        backgroundColor: "#1E5C41",
-                      }}
+              <div className="bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 hover:bg-gray-100 transition-colors">
+                <button className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-colors group">
+                  <div className="relative">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="group-hover:scale-105 transition-transform"
                     >
-                      {cartCount > 99 ? "99+" : cartCount}
-                    </div>
-                  )}
-                </div>
-                <span className="text-sm font-medium">Cart</span>
-              </button>
+                      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                      <line x1="3" y1="6" x2="21" y2="6" />
+                      <path d="m16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    {cartCount > 0 && (
+                      <div
+                        className="absolute -top-2 -right-2 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold animate-pulse"
+                        style={{
+                          fontSize: "9px",
+                          backgroundColor: "#1E5C41",
+                        }}
+                      >
+                        {cartCount > 99 ? "99+" : cartCount}
+                      </div>
+                    )}
+                  </div>
+                  <span className="text-sm font-medium">Cart</span>
+                </button>
+              </div>
             </div>
           </div>
         </header>
@@ -629,7 +630,7 @@ export default function GradeAVinylSite() {
                 <h2 className="text-xl font-bold text-gray-900">Sgt. Pepper's Lonely Heart Club Band</h2>
                 {/* Price - moved up to be directly after title */}
                 <div className="mt-1 text-center">
-                  <span className="text-2xl font-bold text-gray-900">$89.99</span>
+                  <span className="text-2xl font-bold text-gray-900">$450</span>
                 </div>
 
                 {/* Add to Cart Button - moved to be directly after VIEW DETAILS */}
