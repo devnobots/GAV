@@ -1,15 +1,13 @@
 "use client"
 
-import type React from "react"
-
-import { useState, useRef, useCallback } from "react"
+import { useState, useRef, useCallback, useEffect } from "react"
 import Image from "next/image"
 
 const albumViews = [
   {
     id: "front",
-    label: "FRONT",
-    image: "/images/sgt-pepper-cover.png",
+    label: "COVER & DETAILS",
+    image: "/images/sgt-pepper-hq.webp",
   },
   {
     id: "back",
@@ -24,7 +22,7 @@ const albumViews = [
   {
     id: "sleeve-front",
     label: "SLEEVE FRONT",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "/images/sleeve-front.jpg",
   },
   {
     id: "sleeve-back",
@@ -39,7 +37,7 @@ const albumViews = [
   {
     id: "side-a",
     label: "SIDE A",
-    image: "/images/vinyl-record.png",
+    image: "/images/vinyl-side-a.jpg",
   },
   {
     id: "side-b",
@@ -55,52 +53,103 @@ const albumViews = [
 
 export default function GradeAVinylSite() {
   const [selectedView, setSelectedView] = useState("front")
-  const [isHovering, setIsHovering] = useState(false)
-  const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 })
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [showDialog, setShowDialog] = useState(false)
   const [showPressingDetails, setShowPressingDetails] = useState(false)
   const [showStory, setShowStory] = useState(false)
   const [cartCount, setCartCount] = useState(0)
   const [isAdding, setIsAdding] = useState(false)
-  const [zoomLevel, setZoomLevel] = useState(2)
 
-  const thumbnailRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
+  const viewerRef = useRef<HTMLDivElement>(null)
+  const openseadragonViewer = useRef<any>(null)
 
   const currentImage = albumViews.find((view) => view.id === selectedView)?.image || albumViews[0].image
 
-  const handleMouseMove = useCallback((e: React.MouseEvent, viewId: string) => {
-    const thumbnail = thumbnailRefs.current[viewId]
-    if (!thumbnail) return
+  // Initialize OpenSeadragon
+  useEffect(() => {
+    const script = document.createElement("script")
+    script.src = "https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"
+    script.onload = () => {
+      if (viewerRef.current && (window as any).OpenSeadragon) {
+        openseadragonViewer.current = (window as any).OpenSeadragon({
+          element: viewerRef.current,
+          tileSources: {
+            type: "image",
+            url: currentImage,
+          },
+          showNavigationControl: false,
+          showZoomControl: false,
+          showHomeControl: false,
+          showFullPageControl: false,
+          showRotationControl: false,
+          showSequenceControl: false,
+          mouseNavEnabled: true,
+          gestureSettingsMouse: {
+            clickToZoom: false,
+            dblClickToZoom: false,
+            pinchToZoom: false,
+            flickEnabled: false,
+            flickMinSpeed: 120,
+            flickMomentum: 0.25,
+            pinchRotate: false,
+          },
+          gestureSettingsTouch: {
+            clickToZoom: false,
+            dblClickToZoom: false,
+            pinchToZoom: true,
+            flickEnabled: false,
+            pinchRotate: false,
+          },
+          navImages: {
+            zoomIn: {
+              REST: "",
+              GROUP: "",
+              HOVER: "",
+              DOWN: "",
+            },
+            zoomOut: {
+              REST: "",
+              GROUP: "",
+              HOVER: "",
+              DOWN: "",
+            },
+            home: {
+              REST: "",
+              GROUP: "",
+              HOVER: "",
+              DOWN: "",
+            },
+            fullpage: {
+              REST: "",
+              GROUP: "",
+              HOVER: "",
+              DOWN: "",
+            },
+          },
+        })
+      }
+    }
+    document.head.appendChild(script)
 
-    const rect = thumbnail.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-
-    // Calculate relative position as percentage
-    const relativeX = (x / rect.width) * 100
-    const relativeY = (y / rect.height) * 100
-
-    // For background-position with zoom level:
-    const bgX = Math.max(0, Math.min(100, relativeX))
-    const bgY = Math.max(0, Math.min(100, relativeY))
-
-    setZoomPosition({ x: bgX, y: bgY })
-    setMousePosition({ x: e.clientX, y: e.clientY })
-
-    // Update CSS variables for cursor position
-    document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`)
-    document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`)
+    return () => {
+      if (openseadragonViewer.current) {
+        openseadragonViewer.current.destroy()
+      }
+      document.head.removeChild(script)
+    }
   }, [])
 
-  const handleThumbnailEnter = useCallback((viewId: string) => {
+  // Update OpenSeadragon image when selectedView changes
+  useEffect(() => {
+    if (openseadragonViewer.current) {
+      openseadragonViewer.current.open({
+        type: "image",
+        url: currentImage,
+      })
+    }
+  }, [currentImage])
+
+  const handleThumbnailClick = useCallback((viewId: string) => {
     setSelectedView(viewId)
-    setIsHovering(true)
-  }, [])
-
-  const handleThumbnailLeave = useCallback(() => {
-    setIsHovering(false)
-    setSelectedView("front")
   }, [])
 
   const handleAddToCart = useCallback(() => {
@@ -115,18 +164,6 @@ export default function GradeAVinylSite() {
 
   return (
     <div className="min-h-screen bg-white font-['Montserrat']" style={{ paddingTop: "3px" }}>
-      {/* Custom cursor - only show when hovering thumbnails and not showing dialog */}
-      {isHovering && !showDialog && (
-        <div
-          className="fixed w-[30px] h-[30px] bg-yellow-400 pointer-events-none z-50 border border-yellow-600"
-          style={{
-            left: "var(--mouse-x, 0px)",
-            top: "var(--mouse-y, 0px)",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-      )}
-
       {/* Main Content Container - Everything aligned */}
       <div className="max-w-7xl mx-auto px-8">
         {/* Header */}
@@ -204,32 +241,19 @@ export default function GradeAVinylSite() {
                     transform: showPressingDetails ? "rotateY(180deg)" : "rotateY(0deg)",
                   }}
                 >
-                  {/* Front Side - Album Image */}
+                  {/* Front Side - OpenSeadragon Viewer */}
                   <div
-                    className="absolute inset-0 w-full h-full backface-hidden overflow-hidden bg-gray-100 shadow-lg cursor-pointer"
+                    className={`absolute inset-0 w-full h-full backface-hidden overflow-hidden bg-gray-100 shadow-lg ${
+                      selectedView === "front" ? "cursor-pointer" : "cursor-zoom-in"
+                    }`}
                     style={{ backfaceVisibility: "hidden" }}
-                    onClick={() => setShowPressingDetails(true)}
+                    onClick={() => {
+                      if (selectedView === "front") {
+                        setShowPressingDetails(true)
+                      }
+                    }}
                   >
-                    {isHovering ? (
-                      <div
-                        className="w-full h-full"
-                        style={{
-                          backgroundImage: `url(${currentImage})`,
-                          backgroundSize: `${zoomLevel * 100}%`,
-                          backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
-                          backgroundRepeat: "no-repeat",
-                        }}
-                      />
-                    ) : (
-                      <Image
-                        src={currentImage || "/placeholder.svg"}
-                        alt="Album view"
-                        width={800}
-                        height={800}
-                        className="w-full h-full object-cover"
-                        priority
-                      />
-                    )}
+                    <div ref={viewerRef} className="w-full h-full" style={{ background: "#f5f5f5" }} />
                   </div>
 
                   {/* Back Side - Pressing Details */}
@@ -763,7 +787,7 @@ export default function GradeAVinylSite() {
 
                 {/* Floating Dialog */}
                 {showDialog && (
-                  <div className="absolute top-[37px] left-1/2 transform -translate-x-1/2 w-[400px] h-[520px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6">
+                  <div className="absolute top-[37px] left-1/2 transform -translate-x-1/2 w-[400px] h-[600px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6">
                     <div className="h-full flex flex-col">
                       <div className="flex justify-center mb-6">
                         <Image
@@ -774,9 +798,12 @@ export default function GradeAVinylSite() {
                           className="object-contain"
                         />
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-5 text-center">Image Accuracy Matters</h3>
+                      <h3 className="text-xl font-bold text-gray-900 mb-5 text-center">See What You're Buying</h3>
                       <div className="flex-1">
                         <p className="text-sm text-gray-600 leading-relaxed">
+                          Tired of receiving an item that doesn't match its description? We eliminate that uncertainty!
+                          <br />
+                          <br />
                           Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
                           mirrorless camera celebrated for its extraordinary resolution and color accuracy.
                           <br />
@@ -792,57 +819,14 @@ export default function GradeAVinylSite() {
                 )}
               </div>
 
-              {/* Zoom Level Control */}
-              <div className="text-center mb-4">
-                <div className="flex items-center justify-center gap-3">
-                  <label
-                    htmlFor="zoom-level"
-                    className="text-sm font-medium text-gray-600"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Zoom Level:
-                  </label>
-                  <select
-                    id="zoom-level"
-                    value={zoomLevel}
-                    onChange={(e) => setZoomLevel(Number(e.target.value))}
-                    className="text-sm border border-gray-300 rounded px-3 py-1 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "12px",
-                      minWidth: "60px",
-                      focusRingColor: "#1E5C41",
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.borderColor = "#1E5C41"
-                      e.target.style.boxShadow = "0 0 0 2px rgba(30, 92, 65, 0.2)"
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.borderColor = "#d1d5db"
-                      e.target.style.boxShadow = "none"
-                    }}
-                  >
-                    <option value={2}>2x</option>
-                    <option value={3}>3x</option>
-                    <option value={4}>4x</option>
-                    <option value={5}>5x</option>
-                  </select>
-                </div>
-              </div>
-
               {/* Thumbnails Grid - flex-1 to fill remaining space */}
               <div className="flex-1 flex flex-col">
                 <div className="grid grid-cols-3 gap-4 flex-1">
                   {albumViews.map((view) => (
                     <div
                       key={view.id}
-                      className="cursor-none flex flex-col"
-                      ref={(el) => {
-                        thumbnailRefs.current[view.id] = el
-                      }}
-                      onMouseEnter={() => handleThumbnailEnter(view.id)}
-                      onMouseMove={(e) => handleMouseMove(e, view.id)}
-                      onMouseLeave={handleThumbnailLeave}
+                      className="cursor-pointer flex flex-col"
+                      onClick={() => handleThumbnailClick(view.id)}
                     >
                       <div className="aspect-square relative group">
                         <Image
@@ -857,7 +841,7 @@ export default function GradeAVinylSite() {
                       <div className="text-center mt-2">
                         <span
                           className={`text-xs font-medium ${
-                            selectedView === view.id && isHovering ? "text-red-500 font-bold" : "text-gray-500"
+                            selectedView === view.id ? "text-red-500 font-bold" : "text-gray-500"
                           }`}
                         >
                           {view.label}
