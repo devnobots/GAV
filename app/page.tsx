@@ -272,7 +272,7 @@ export default function GradeAVinylSite() {
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <span className="text-gray-900 font-medium">Home</span>
                 <span>›</span>
-                <span className="text-gray-900 font-medium">Rock</span>
+                <span className="text-gray-900 font-medium">Sgt. Pepper's Lonely Heart Club Band</span>
               </div>
             </div>
           </div>
