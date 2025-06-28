@@ -83,6 +83,8 @@ export default function GradeAVinylSite() {
           showRotationControl: false,
           showSequenceControl: false,
           mouseNavEnabled: true,
+          maxZoomLevel: 6,
+          minZoomLevel: 1,
           gestureSettingsMouse: {
             clickToZoom: false,
             dblClickToZoom: false,
