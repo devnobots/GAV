@@ -6,47 +6,42 @@ import Image from "next/image"
 const albumViews = [
   {
     id: "front",
-    label: "COVER & DETAILS",
+    label: "FRONT",
     image: "/images/sgt-pepper-hq.webp",
   },
   {
     id: "back",
     label: "BACK",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/003-LifQtGpJnShCMlhttgHRwp1ng7pShF.jpg",
   },
   {
     id: "spine",
-    label: "SPINE",
-    image: "/placeholder.svg?height=300&width=300",
-  },
-  {
-    id: "sleeve-front",
     label: "SLEEVE FRONT",
-    image: "/images/sleeve-front.jpg",
+    image: "/placeholder.svg?height=300&width=300",
   },
   {
-    id: "sleeve-back",
-    label: "SLEEVE BACK",
-    image: "/placeholder.svg?height=300&width=300",
+    id: "gatefold",
+    label: "GATEFOLD",
+    image: "/images/sgt-pepper-gatefold.jpg",
   },
   {
     id: "inner-sleeve",
-    label: "INNER SLEEVE",
+    label: "SLEEVE BACK",
     image: "/placeholder.svg?height=300&width=300",
   },
   {
     id: "side-a",
     label: "SIDE A",
-    image: "/images/vinyl-side-a.jpg",
+    image: "/images/vinyl-record-red.png",
   },
   {
     id: "side-b",
     label: "SIDE B",
-    image: "/images/vinyl-record.png",
+    image: "/images/vinyl-record-red.png",
   },
   {
     id: "label-detail",
-    label: "LABEL DETAIL",
+    label: "ALBUM DETAILS",
     image: "/placeholder.svg?height=300&width=300",
   },
 ]
@@ -61,92 +56,147 @@ export default function GradeAVinylSite() {
 
   const viewerRef = useRef<HTMLDivElement>(null)
   const openseadragonViewer = useRef<any>(null)
+  const scriptLoadedRef = useRef(false)
 
   const currentImage = albumViews.find((view) => view.id === selectedView)?.image || albumViews[0].image
 
   // Initialize OpenSeadragon
   useEffect(() => {
+    // Check if script is already loaded
+    if (scriptLoadedRef.current || (window as any).OpenSeadragon) {
+      initializeViewer()
+      return
+    }
+
     const script = document.createElement("script")
     script.src = "https://cdn.jsdelivr.net/npm/openseadragon@4.1.0/build/openseadragon/openseadragon.min.js"
+    script.async = true
+
     script.onload = () => {
-      if (viewerRef.current && (window as any).OpenSeadragon) {
-        openseadragonViewer.current = (window as any).OpenSeadragon({
-          element: viewerRef.current,
-          tileSources: {
-            type: "image",
-            url: currentImage,
-          },
-          showNavigationControl: false,
-          showZoomControl: false,
-          showHomeControl: false,
-          showFullPageControl: false,
-          showRotationControl: false,
-          showSequenceControl: false,
-          mouseNavEnabled: true,
-          maxZoomLevel: 6,
-          minZoomLevel: 1,
-          gestureSettingsMouse: {
-            clickToZoom: false,
-            dblClickToZoom: false,
-            pinchToZoom: false,
-            flickEnabled: false,
-            flickMinSpeed: 120,
-            flickMomentum: 0.25,
-            pinchRotate: false,
-          },
-          gestureSettingsTouch: {
-            clickToZoom: false,
-            dblClickToZoom: false,
-            pinchToZoom: true,
-            flickEnabled: false,
-            pinchRotate: false,
-          },
-          navImages: {
-            zoomIn: {
-              REST: "",
-              GROUP: "",
-              HOVER: "",
-              DOWN: "",
+      scriptLoadedRef.current = true
+      initializeViewer()
+    }
+
+    script.onerror = (error) => {
+      console.error("Failed to load OpenSeadragon script:", error)
+    }
+
+    document.head.appendChild(script)
+
+    function initializeViewer() {
+      if (viewerRef.current && (window as any).OpenSeadragon && !openseadragonViewer.current) {
+        try {
+          openseadragonViewer.current = (window as any).OpenSeadragon({
+            element: viewerRef.current,
+            tileSources: {
+              type: "image",
+              url: currentImage,
             },
-            zoomOut: {
-              REST: "",
-              GROUP: "",
-              HOVER: "",
-              DOWN: "",
+            showNavigationControl: false,
+            showZoomControl: false,
+            showHomeControl: false,
+            showFullPageControl: false,
+            showRotationControl: false,
+            showSequenceControl: false,
+            mouseNavEnabled: true,
+            maxZoomLevel: 10,
+            minZoomLevel: 1,
+            gestureSettingsMouse: {
+              clickToZoom: false,
+              dblClickToZoom: false,
+              pinchToZoom: false,
+              flickEnabled: false,
+              flickMinSpeed: 120,
+              flickMomentum: 0.25,
+              pinchRotate: false,
             },
-            home: {
-              REST: "",
-              GROUP: "",
-              HOVER: "",
-              DOWN: "",
+            gestureSettingsTouch: {
+              clickToZoom: false,
+              dblClickToZoom: false,
+              pinchToZoom: true,
+              flickEnabled: false,
+              pinchRotate: false,
             },
-            fullpage: {
-              REST: "",
-              GROUP: "",
-              HOVER: "",
-              DOWN: "",
+            navImages: {
+              zoomIn: {
+                REST: "",
+                GROUP: "",
+                HOVER: "",
+                DOWN: "",
+              },
+              zoomOut: {
+                REST: "",
+                GROUP: "",
+                HOVER: "",
+                DOWN: "",
+              },
+              home: {
+                REST: "",
+                GROUP: "",
+                HOVER: "",
+                DOWN: "",
+              },
+              fullpage: {
+                REST: "",
+                GROUP: "",
+                HOVER: "",
+                DOWN: "",
+              },
             },
-          },
-        })
+          })
+
+          // Add double-click event to reset zoom to 1.0
+          if (openseadragonViewer.current) {
+            // Wait for the viewer to be fully ready
+            openseadragonViewer.current.addHandler("open", () => {
+              // Add double-click handler after viewer is fully loaded
+              openseadragonViewer.current.addHandler("canvas-double-click", (event: any) => {
+                try {
+                  event.preventDefaultAction = true // Prevent default double-click behavior
+
+                  // Reset zoom and center the image
+                  openseadragonViewer.current.viewport.zoomTo(1.0, null, true)
+                  openseadragonViewer.current.viewport.panTo(new (window as any).OpenSeadragon.Point(0.5, 0.5), true)
+                } catch (error) {
+                  console.error("Error handling double-click:", error)
+                }
+              })
+            })
+          }
+        } catch (error) {
+          console.error("Error initializing OpenSeadragon:", error)
+        }
       }
     }
-    document.head.appendChild(script)
 
     return () => {
       if (openseadragonViewer.current) {
-        openseadragonViewer.current.destroy()
+        try {
+          openseadragonViewer.current.destroy()
+          openseadragonViewer.current = null
+        } catch (error) {
+          console.error("Error destroying OpenSeadragon viewer:", error)
+        }
       }
-      document.head.removeChild(script)
+      // Only remove script if we added it
+      const existingScript = document.querySelector('script[src*="openseadragon"]')
+      if (existingScript && existingScript.parentNode) {
+        existingScript.parentNode.removeChild(existingScript)
+      }
     }
   }, [])
 
   // Update OpenSeadragon image when selectedView changes
   useEffect(() => {
     if (openseadragonViewer.current) {
-      openseadragonViewer.current.open({
-        type: "image",
-        url: currentImage,
-      })
+      try {
+        openseadragonViewer.current.open({
+          type: "image",
+          url: currentImage,
+        })
+      } catch (error) {
+        console.error("Error updating OpenSeadragon image:", error)
+      }
     }
   }, [currentImage])
 
@@ -245,26 +295,20 @@ export default function GradeAVinylSite() {
                 >
                   {/* Front Side - OpenSeadragon Viewer */}
                   <div
-                    className={`absolute inset-0 w-full h-full backface-hidden overflow-hidden bg-gray-100 shadow-lg ${
-                      selectedView === "front" ? "cursor-pointer" : "cursor-zoom-in"
-                    }`}
+                    className="absolute inset-0 w-full h-full backface-hidden overflow-hidden bg-gray-100 shadow-lg cursor-zoom-in"
                     style={{ backfaceVisibility: "hidden" }}
-                    onClick={() => {
-                      if (selectedView === "front") {
-                        setShowPressingDetails(true)
-                      }
-                    }}
                   >
                     <div ref={viewerRef} className="w-full h-full" style={{ background: "#f5f5f5" }} />
                   </div>
 
                   {/* Back Side - Pressing Details */}
                   <div
-                    className="absolute inset-0 w-full h-full backface-hidden bg-white p-6 overflow-hidden border border-black"
+                    className="absolute inset-0 w-full h-full backface-hidden p-6 overflow-hidden border border-black"
                     style={{
                       backfaceVisibility: "hidden",
                       transform: "rotateY(180deg)",
                       fontFamily: "Georgia, serif",
+                      backgroundColor: "#F5F5F5",
                     }}
                   >
                     {/* Pressing Details Content */}
@@ -519,14 +563,15 @@ export default function GradeAVinylSite() {
                         {showStory && (
                           <div className="relative pt-6">
                             <button
-                              onClick={() => setShowStory(false)}
-                              className="absolute left-4 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors bg-white px-3 py-2 rounded shadow-lg border"
+                              className="absolute left-4 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors px-3 py-2 rounded shadow-lg border"
                               style={{
+                                backgroundColor: "#F5F5F5",
                                 fontFamily: "Montserrat, sans-serif",
                                 fontWeight: "500",
                                 zIndex: 10000,
                                 top: "0px",
                               }}
+                              onClick={() => setShowStory(false)}
                             >
                               <svg
                                 width="12"
@@ -546,7 +591,10 @@ export default function GradeAVinylSite() {
                           </div>
                         )}
 
-                        <div className="h-full px-6 pt-6" style={{ fontFamily: "Lora, serif" }}>
+                        <div
+                          className="h-full px-6 pt-6"
+                          style={{ fontFamily: "Lora, serif", backgroundColor: "#F5F5F5" }}
+                        >
                           {/* Story Title */}
                           <h2
                             className="text-center text-gray-900 text-base font-semibold tracking-wide mb-8"
@@ -803,7 +851,7 @@ export default function GradeAVinylSite() {
                       <h3 className="text-xl font-bold text-gray-900 mb-5 text-center">See What You're Buying</h3>
                       <div className="flex-1">
                         <p className="text-sm text-gray-600 leading-relaxed">
-                          Tired of receiving an item that doesn't match its description? We eliminate that uncertainty!
+                          Tired of receiving vinyl that doesn't match its description? We eliminate that uncertainty!
                           <br />
                           <br />
                           Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
@@ -823,17 +871,78 @@ export default function GradeAVinylSite() {
 
               {/* Thumbnails Grid - flex-1 to fill remaining space */}
               <div className="flex-1 flex flex-col">
-                <div className="grid grid-cols-3 gap-4 flex-1">
-                  {albumViews.map((view) => (
+                <div className="flex-1 space-y-4">
+                  {/* First Row - 3 equal columns */}
+                  <div className="grid grid-cols-3 gap-4">
+                    {albumViews.slice(0, 3).map((view) => (
+                      <div
+                        key={view.id}
+                        className="cursor-pointer flex flex-col"
+                        onClick={() => {
+                          if (view.id === "label-detail") {
+                            setShowPressingDetails(true)
+                          } else {
+                            handleThumbnailClick(view.id)
+                          }
+                        }}
+                      >
+                        <div className="aspect-square relative group">
+                          <Image
+                            src={view.image || "/placeholder.svg"}
+                            alt={view.label}
+                            width={200}
+                            height={200}
+                            className="w-full h-full object-cover shadow-lg transition-transform group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all" />
+                        </div>
+                        <div className="text-center mt-2">
+                          <span
+                            className={`text-xs font-medium ${
+                              selectedView === view.id ? "text-red-500 font-bold" : "text-gray-500"
+                            }`}
+                          >
+                            {view.label}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Second Row - Gatefold spans 2 columns, Inner Sleeve takes 1 */}
+                  <div className="grid grid-cols-3 gap-4">
+                    {/* Gatefold - spans 2 columns */}
                     <div
-                      key={view.id}
-                      className="cursor-pointer flex flex-col"
-                      onClick={() => handleThumbnailClick(view.id)}
+                      className="col-span-2 cursor-pointer flex flex-col"
+                      onClick={() => handleThumbnailClick("gatefold")}
                     >
+                      <div className="aspect-[2/1] relative group">
+                        <Image
+                          src="/images/sgt-pepper-gatefold.jpg"
+                          alt="GATEFOLD"
+                          width={400}
+                          height={200}
+                          className="w-full h-full object-cover shadow-lg transition-transform group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all" />
+                      </div>
+                      <div className="text-center mt-2">
+                        <span
+                          className={`text-xs font-medium ${
+                            selectedView === "gatefold" ? "text-red-500 font-bold" : "text-gray-500"
+                          }`}
+                        >
+                          GATEFOLD
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Inner Sleeve - 1 column */}
+                    <div className="cursor-pointer flex flex-col" onClick={() => handleThumbnailClick("inner-sleeve")}>
                       <div className="aspect-square relative group">
                         <Image
-                          src={view.image || "/placeholder.svg"}
-                          alt={view.label}
+                          src="/placeholder.svg?height=300&width=300"
+                          alt="INNER SLEEVE"
                           width={200}
                           height={200}
                           className="w-full h-full object-cover shadow-lg transition-transform group-hover:scale-105"
@@ -843,14 +952,51 @@ export default function GradeAVinylSite() {
                       <div className="text-center mt-2">
                         <span
                           className={`text-xs font-medium ${
-                            selectedView === view.id ? "text-red-500 font-bold" : "text-gray-500"
+                            selectedView === "inner-sleeve" ? "text-red-500 font-bold" : "text-gray-500"
                           }`}
                         >
-                          {view.label}
+                          SLEEVE BACK
                         </span>
                       </div>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Third Row - 3 equal columns */}
+                  <div className="grid grid-cols-3 gap-4">
+                    {albumViews.slice(5, 8).map((view) => (
+                      <div
+                        key={view.id}
+                        className="cursor-pointer flex flex-col"
+                        onClick={() => {
+                          if (view.id === "label-detail") {
+                            setShowPressingDetails(true)
+                          } else {
+                            handleThumbnailClick(view.id)
+                          }
+                        }}
+                      >
+                        <div className="aspect-square relative group">
+                          <Image
+                            src={view.image || "/placeholder.svg"}
+                            alt={view.label}
+                            width={200}
+                            height={200}
+                            className="w-full h-full object-cover shadow-lg transition-transform group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all" />
+                        </div>
+                        <div className="text-center mt-2">
+                          <span
+                            className={`text-xs font-medium ${
+                              selectedView === view.id ? "text-red-500 font-bold" : "text-gray-500"
+                            }`}
+                          >
+                            {view.label}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
