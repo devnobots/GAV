@@ -342,8 +342,7 @@ export default function LpMobileHome() {
                 <span
                   className="text-base font-medium text-red-500 cursor-pointer hover:text-red-700 transition-colors"
                   onClick={() => setShowDialog(!showDialog)}
-                >
-                  Hasselblad Precision Zoom
+                >Photography Details ⓘ
                 </span>
 
                 {/* Mobile Dialog */}
@@ -374,20 +373,21 @@ export default function LpMobileHome() {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">True-to-Life Imagery</h3>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">See What You're Buying</h3>
 
                         {/* Text content */}
                         <div className="flex-1">
                           <p className="text-base text-gray-600 leading-relaxed">
-                            Every record at Grade A Vinyl is meticulously photographed using a Hasselblad medium format
-                            mirrorless camera celebrated for its extraordinary resolution.
+                            Tired of receiving vinyl that doesn't match its description? We eliminate that uncertainty!
+                          <br />
+                          <br />
+                          Every record at Grade A Vinyl is meticulously photographed in a dust free room, using a Hasselblad medium format camera celebrated for its extraordinary accuracy.
+                          <br />
+                          <br />
+                          This ensures that what you see online is an exact representation of your chosen record.
                             <br />
                             <br />
-                            We invest in this precision to capture every subtle detail, ensuring that what you see
-                            online is an exact representation of your chosen record.
-                            <br />
-                            <br />
-                            <b>We recommend exploring our collection on a desktop computer.</b>
+                            <b>We recommend exploring our collection on a desktop browser.</b>
                           </p>
                         </div>
                       </div>

@@ -17,7 +17,7 @@ const albumViews = [
   {
     id: "spine",
     label: "SLEEVE FRONT",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/ifone-wUvV3E8xiyVuP6gnjQyILMnYvvzOk5.jpg",
   },
   {
     id: "gatefold",
@@ -27,7 +27,7 @@ const albumViews = [
   {
     id: "inner-sleeve",
     label: "SLEEVE BACK",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/water-gXBTYfVxuCmkaFWlYRHdujcdF5LD5L.jpg",
   },
   {
     id: "side-a",
@@ -37,7 +37,7 @@ const albumViews = [
   {
     id: "side-b",
     label: "SIDE B",
-    image: "/images/vinyl-record-red.png",
+    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/frog-DTZk1v9dcCM4MQtpU0tKNDFkTi4Nck.jpg",
   },
   {
     id: "label-detail",
@@ -53,6 +53,11 @@ export default function GradeAVinylSite() {
   const [showStory, setShowStory] = useState(false)
   const [cartCount, setCartCount] = useState(0)
   const [isAdding, setIsAdding] = useState(false)
+  const [showZoomTooltip, setShowZoomTooltip] = useState(false)
+  const [tooltipFadingOut, setTooltipFadingOut] = useState(false)
+  const [tooltipShownOnce, setTooltipShownOnce] = useState(false)
+  const tooltipTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const fadeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const viewerRef = useRef<HTMLDivElement>(null)
   const openseadragonViewer = useRef<any>(null)
@@ -178,6 +183,15 @@ export default function GradeAVinylSite() {
           console.error("Error destroying OpenSeadragon viewer:", error)
         }
       }
+
+      // Clear tooltip timeouts
+      if (tooltipTimeoutRef.current) {
+        clearTimeout(tooltipTimeoutRef.current)
+      }
+      if (fadeTimeoutRef.current) {
+        clearTimeout(fadeTimeoutRef.current)
+      }
+
       // Only remove script if we added it
       const existingScript = document.querySelector('script[src*="openseadragon"]')
       if (existingScript && existingScript.parentNode) {
@@ -212,6 +226,40 @@ export default function GradeAVinylSite() {
     setTimeout(() => {
       setIsAdding(false)
     }, 1500)
+  }, [])
+
+  const handleImageMouseEnter = useCallback(() => {
+    // Only show tooltip if it hasn't been shown before in this session
+    if (tooltipShownOnce) {
+      return
+    }
+
+    setShowZoomTooltip(true)
+    setTooltipFadingOut(false)
+    setTooltipShownOnce(true) // Mark as shown for this session
+
+    // Clear any existing timeouts
+    if (tooltipTimeoutRef.current) {
+      clearTimeout(tooltipTimeoutRef.current)
+    }
+    if (fadeTimeoutRef.current) {
+      clearTimeout(fadeTimeoutRef.current)
+    }
+
+    // Set timeout to start fade after 3 seconds
+    tooltipTimeoutRef.current = setTimeout(() => {
+      setTooltipFadingOut(true)
+
+      // Set timeout to hide completely after fade duration (2 seconds)
+      fadeTimeoutRef.current = setTimeout(() => {
+        setShowZoomTooltip(false)
+        setTooltipFadingOut(false)
+      }, 2000)
+    }, 3000)
+  }, [tooltipShownOnce])
+
+  const handleImageMouseLeave = useCallback(() => {
+    // Don't hide immediately on mouse leave, let the timers handle it
   }, [])
 
   return (
@@ -254,7 +302,7 @@ export default function GradeAVinylSite() {
                           backgroundColor: "#1E5C41",
                         }}
                       >
-                        {cartCount > 99 ? "99+" : cartCount}
+                        {cartCount > 0 ? cartCount : ""}
                       </div>
                     )}
                   </div>
@@ -295,10 +343,33 @@ export default function GradeAVinylSite() {
                 >
                   {/* Front Side - OpenSeadragon Viewer */}
                   <div
-                    className="absolute inset-0 w-full h-full backface-hidden overflow-hidden bg-gray-100 shadow-lg cursor-zoom-in"
+                    className="absolute inset-0 w-full h-full backface-hidden overflow-hidden bg-gray-100 shadow-lg cursor-zoom-in relative"
                     style={{ backfaceVisibility: "hidden" }}
+                    onMouseEnter={handleImageMouseEnter}
+                    onMouseLeave={handleImageMouseLeave}
                   >
                     <div ref={viewerRef} className="w-full h-full" style={{ background: "#f5f5f5" }} />
+
+                    {/* Zoom Tooltip - Centered */}
+                    {showZoomTooltip && (
+                      <div
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-2.5 py-2 rounded-md shadow-lg pointer-events-none"
+                        style={{
+                          width: "154px",
+                          fontFamily: "Montserrat, sans-serif",
+                          fontSize: "11px",
+                          fontWeight: "500",
+                          textAlign: "center",
+                          lineHeight: "1.2",
+                          zIndex: 1000,
+                          opacity: tooltipFadingOut ? 0 : 1,
+                          transition: "opacity 2s ease-out",
+                        }}
+                      >
+                        <div>Scroll to Zoom</div>
+                        <div>Double Click to Reset</div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Back Side - Pressing Details */}
@@ -854,8 +925,9 @@ export default function GradeAVinylSite() {
                           Tired of receiving vinyl that doesn't match its description? We eliminate that uncertainty!
                           <br />
                           <br />
-                          Every record at Grade A Vinyl is meticulously photographed in a dust free room, using a Hasselblad medium format
-                          mirrorless camera celebrated for its extraordinary resolution and color accuracy.
+                          Every record at Grade A Vinyl is meticulously photographed in a dust free room, using a
+                          Hasselblad medium format mirrorless camera celebrated for its extraordinary resolution and
+                          color accuracy.
                           <br />
                           <br />
                           We invest in this precision to capture every subtle detail - from the intricate textures of
@@ -941,7 +1013,7 @@ export default function GradeAVinylSite() {
                     <div className="cursor-pointer flex flex-col" onClick={() => handleThumbnailClick("inner-sleeve")}>
                       <div className="aspect-square relative group">
                         <Image
-                          src="/placeholder.svg?height=300&width=300"
+                          src="https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/water-gXBTYfVxuCmkaFWlYRHdujcdF5LD5L.jpg"
                           alt="INNER SLEEVE"
                           width={200}
                           height={200}
