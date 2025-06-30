@@ -17,7 +17,7 @@ const albumViews = [
   {
     id: "spine",
     label: "SLEEVE FRONT",
-    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/ifone-wUvV3E8xiyVuP6gnjQyILMnYvvzOk5.jpg",
+    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/lock_square-NOOTsy61NHh8pDFSRciehomrVXYPpm.jpg",
   },
   {
     id: "gatefold",
@@ -104,7 +104,7 @@ export default function GradeAVinylSite() {
             showRotationControl: false,
             showSequenceControl: false,
             mouseNavEnabled: true,
-            maxZoomLevel: 10,
+            maxZoomLevel: 15,
             minZoomLevel: 1,
             gestureSettingsMouse: {
               clickToZoom: false,
