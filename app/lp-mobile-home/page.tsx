@@ -381,7 +381,7 @@ export default function LpMobileHome() {
                             Tired of receiving vinyl that doesn't match its description? We eliminate that uncertainty!
                           <br />
                           <br />
-                          Every record at Grade A Vinyl is meticulously photographed in a dust free room, using a Hasselblad medium format camera celebrated for its extraordinary accuracy.
+                          Every record at Grade A Vinyl is meticulously photographed in a dust free room, using a high resolution mirrorless camera celebrated for its extraordinary resolution and color accuracy.
                           <br />
                           <br />
                           This ensures that what you see online is an exact representation of your chosen record.

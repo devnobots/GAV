@@ -7,17 +7,18 @@ const albumViews = [
   {
     id: "front",
     label: "FRONT",
-    image: "/images/sgt-pepper-hq.webp",
+    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/FRONT-bdJN6xoK5FPrrIcUjymKh7Uoiu8v6a.jpg",
   },
   {
     id: "back",
     label: "BACK",
-    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/003-LifQtGpJnShCMlhttgHRwp1ng7pShF.jpg",
+    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/BACK-DYgn57eujf5675MSgeurwF22Cst9HL.jpg",
   },
   {
     id: "spine",
     label: "SLEEVE FRONT",
-    image: "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/lock_square-NOOTsy61NHh8pDFSRciehomrVXYPpm.jpg",
+    image:
+      "https://dg9gcoxo6erv82nw.public.blob.vercel-storage.com/FRONT_super_res_1-yHuqQ3zzdstFwg0MecCc03mWnMklXB.jpg",
   },
   {
     id: "gatefold",
@@ -104,7 +105,7 @@ export default function GradeAVinylSite() {
             showRotationControl: false,
             showSequenceControl: false,
             mouseNavEnabled: true,
-            maxZoomLevel: 15,
+            maxZoomLevel: 8,
             minZoomLevel: 1,
             gestureSettingsMouse: {
               clickToZoom: false,
@@ -912,8 +913,8 @@ export default function GradeAVinylSite() {
                     <div className="h-full flex flex-col">
                       <div className="flex justify-center mb-6">
                         <Image
-                          src="/images/hasselblad-x1d-50c.png"
-                          alt="Hasselblad X1D-50c Camera"
+                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/trans-mGDEgOMiqVfle21DQMPxAIsTS8ZTom.png"
+                          alt="Hasselblad Lens Detail"
                           width={224}
                           height={160}
                           className="object-contain"
@@ -925,9 +926,8 @@ export default function GradeAVinylSite() {
                           Tired of receiving vinyl that doesn't match its description? We eliminate that uncertainty!
                           <br />
                           <br />
-                          Every record at Grade A Vinyl is meticulously photographed in a dust free room, using a
-                          Hasselblad medium format mirrorless camera celebrated for its extraordinary resolution and
-                          color accuracy.
+                          Every record at Grade A Vinyl is meticulously photographed in a dust free room, using a high
+                          resolution mirrorless camera celebrated for its extraordinary resolution and color accuracy.
                           <br />
                           <br />
                           We invest in this precision to capture every subtle detail - from the intricate textures of
