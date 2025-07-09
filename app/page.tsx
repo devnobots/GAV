@@ -105,7 +105,7 @@ export default function GradeAVinylSite() {
             showRotationControl: false,
             showSequenceControl: false,
             mouseNavEnabled: true,
-            maxZoomLevel: 8,
+            maxZoomLevel: 7,
             minZoomLevel: 1,
             gestureSettingsMouse: {
               clickToZoom: false,
@@ -256,7 +256,7 @@ export default function GradeAVinylSite() {
         setShowZoomTooltip(false)
         setTooltipFadingOut(false)
       }, 2000)
-    }, 3000)
+    }, 5000)
   }, [tooltipShownOnce])
 
   const handleImageMouseLeave = useCallback(() => {
@@ -272,7 +272,9 @@ export default function GradeAVinylSite() {
           <div className="flex justify-center relative">
             <div className="w-full max-w-2xl text-center">
               {/* Logo */}
-              <h1 className="text-4xl font-black text-red-500 tracking-wider mb-2">GRADE A VINYL</h1>
+              <h1 className="text-4xl font-black text-red-500 tracking-wider mb-2" style={{ paddingBottom: "5px" }}>
+                GRADE A VINYL
+              </h1>
             </div>
 
             {/* Cart Summary - positioned in upper right */}
@@ -356,9 +358,9 @@ export default function GradeAVinylSite() {
                       <div
                         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-2.5 py-2 rounded-md shadow-lg pointer-events-none"
                         style={{
-                          width: "154px",
+                          width: "200px",
                           fontFamily: "Montserrat, sans-serif",
-                          fontSize: "11px",
+                          fontSize: "14px",
                           fontWeight: "500",
                           textAlign: "center",
                           lineHeight: "1.2",
@@ -909,12 +911,15 @@ export default function GradeAVinylSite() {
 
                 {/* Floating Dialog */}
                 {showDialog && (
-                  <div className="absolute top-[37px] left-1/2 transform -translate-x-1/2 w-[400px] h-[600px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 p-6">
+                  <div
+                    className="absolute top-[37px] left-1/2 transform -translate-x-1/2 w-[400px] h-[600px] bg-white rounded-lg shadow-2xl border border-gray-200 z-50"
+                    style={{ paddingTop: "9px", paddingLeft: "24px", paddingRight: "24px", paddingBottom: "39px" }}
+                  >
                     <div className="h-full flex flex-col">
-                      <div className="flex justify-center mb-6">
+                      <div className="flex justify-center mb-3">
                         <Image
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/trans-mGDEgOMiqVfle21DQMPxAIsTS8ZTom.png"
-                          alt="Hasselblad Lens Detail"
+                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/lense_400x-cLGtxuVtWpcqeSNrG2IzP45LhIFyVK.png"
+                          alt="Professional Camera Lens"
                           width={224}
                           height={160}
                           className="object-contain"
